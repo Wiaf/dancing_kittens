@@ -1,0 +1,4 @@
+timemachine_user: timemachine
+timemachine_group: timemachine
+timemachine_prerequirements:
+  - netatalk
