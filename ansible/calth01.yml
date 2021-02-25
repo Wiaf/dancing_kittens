@@ -4,5 +4,7 @@
 #  tasks:
 #    - debug: var=ansible_hostname
   roles:
+   - { role: raspi-config, tags: [ "raspi-config" ] }
    - { role: hdparm, tags: [ "hdparm" ] }
    - { role: samba, tags: [ "samba" ] }
+   - { role: timemachine, tags: [ "timemachine" ] }

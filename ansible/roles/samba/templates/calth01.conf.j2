@@ -1,0 +1,17 @@
+[global]
+workgroup = WORKGROUP
+security = user
+map to guest = Bad Password
+os level = 69
+local master = yes
+preferred master = yes
+
+[{{ samba_share_name }}]
+path = {{ samba_mount_path }}
+read only = no
+create mask = 0777
+directory mask = 0777
+public = no
+writable = yes
+printable = no
+guest ok = no
