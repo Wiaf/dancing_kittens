@@ -1,0 +1,14 @@
+---
+- name: install hdparm
+  apt: 
+    name: 
+      - hdparm
+    state: present
+
+- name: Copy hdparm.conf
+  copy:
+    src: hdparm.conf
+    dest: /etc/hdparm.conf
+    owner: root
+    group: root
+    mode: 0755

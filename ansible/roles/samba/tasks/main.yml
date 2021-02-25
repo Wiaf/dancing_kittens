@@ -1,0 +1,107 @@
+---
+
+- name: add samba users
+  user:
+    name: "{{ item }}"
+    shell: /bin/false
+ #   groups: "{{ item }}"
+  with_items:
+    - smbuser
+    - timemachine 
+
+- name: install samba 
+  apt: 
+    name: "{{ samba_prerequirements }}"
+    state: present
+
+- name: Make sure /media/kittycastle exists
+  file:
+   path: /media/kittycastle
+   owner: smbuser
+   group: smbuser
+   mode: '1775'
+   state: directory
+
+- name: Mount kittycastle
+  ansible.posix.mount:
+    path: /media/kittycastle
+    src: UUID="{{ partition_kittycastle }}"
+    fstype: ext4
+    opts: noexec,nodev,noatime,nodiratime
+    state: mounted
+  register: mount_sm
+  ignore_errors: true
+  
+- name: mount randoschmando
+  ansible.posix.mount:
+    path: /media/randomc
+    src: UUID="{{ partition_random }}"
+    fstype: ext4
+    opts: noexec,nodev,noatime,nodiratime
+    state: mounted
+  register: mount_smb
+  ignore_errors: true
+
+- name: Copy new smb.conf
+  copy:
+    src: "{{ansible_hostname}}.conf"
+    dest: /etc/samba/smb.conf
+  notify:
+   - restart smbd
+  tags: config_samba
+
+- name: copy fuck_datengrab.sh
+  copy:
+    src: fuck_datengrab.sh
+    dest: /usr/local/bin/fuck_datengrab.sh
+    owner: root
+    group: root
+    mode: '744'
+  tags: recovery
+
+  
+- name: Make sure /media/timemachine exists
+  file:
+   path: /media/timemachine
+   owner: timemachine
+   group: timemachine
+   state: directory
+
+- name: mount timemachine volume
+  ansible.posix.mount:
+    path: /media/timemachine
+    src: UUID="{{partition_timemachine}}"
+    fstype: ext4
+    opts: noexec,nodev,noatime,nodiratime
+    state: mounted
+  register: mount_timemachine
+
+- name: Make Timemachine work
+  block:
+    - name: install netatalk
+      apt:
+        name:
+          - netatalk
+        state: latest
+      notify: 
+        - restart avahi
+        - restart netatalk 
+        
+    - name: configure avahi-daemon service
+      copy:
+        src: samba.service
+        dest: /etc/avahi/services/samba.service
+      notify:
+        - restart avahi
+
+    - name: setup nsswitch.conf
+      lineinfile:
+        dest: /etc/nsswitch.conf
+        regexp: "^hosts:          files mdns4_minimal [NOTFOUND=return] dns"
+        line: "hosts:          files mdns4_minimal [NOTFOUND=return] dns mdns4 mdns"
+        state: present
+        backup: yes
+      notify: 
+        - restart avahi
+        - restart netatalk     
+

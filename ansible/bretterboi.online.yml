@@ -1,0 +1,13 @@
+---
+
+- hosts: bretterboi.online
+#  tasks:
+#    - debug: var=ansible_hostname
+  roles:
+   - { role: protonvpn, tags: [ "protovnVPN" ] }
+   - { role: mariadb, tags: [ "mariadb" ] }
+   - { role: nginx, tags: [ "nginx" ] }
+   - { role: php, tags: [ "php" ] }  
+   - { role: nextcloud, tags: [ "nextcloud" ] }  
+   #- { role: rclone, tags: [ "rclone" ] }       
+ 

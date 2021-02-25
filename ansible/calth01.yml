@@ -1,0 +1,8 @@
+---
+
+- hosts: calth01
+#  tasks:
+#    - debug: var=ansible_hostname
+  roles:
+   - { role: hdparm, tags: [ "hdparm" ] }
+   - { role: samba, tags: [ "samba" ] }

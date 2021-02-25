@@ -1,0 +1,4 @@
+samba_prerequirements:
+- samba 
+- samba-common 
+- samba-common-bin

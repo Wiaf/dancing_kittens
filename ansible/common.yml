@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  gather_facts: yes
+#  tasks:
+#    - debug: var=ansible_hostname
+  roles:
+   - { role: common, tags: [ "common" ] }
+  #ignore_errors: true
