@@ -7,12 +7,12 @@
 - name: Run all prod environment
   import_playbook: common.yml
 
-- name: Run on calth01 (pihole)
+- name: Run on calth01 
   import_playbook: calth01.yml
 
-- name: Run on calth02 (rclone, smb, timemachine)
+- name: Run on calth02
   import_playbook: calth02.yml
 
-- name: Run on calth02 (rclone, smb, timemachine)
+- name: Run on bretterboi.online
   import_playbook: bretterboi.online.yml
   
