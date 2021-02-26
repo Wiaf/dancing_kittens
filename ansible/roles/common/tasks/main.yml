@@ -110,7 +110,6 @@
     name: "{{ packages_common }}"
     state: present
     install_recommends: yes 
-    force: yes
   when: common_host.changed
 
 - name: setting editor correctly
@@ -122,7 +121,8 @@
 
     - name: set default editor
       command: update-alternatives --set editor /usr/bin/vim.basic
-      when: alternatives_editor.stat.exists == True and alternatives_editor.stat.lnk_source != "/usr/bin/vim.basic"
+      when: alternatives_editor.stat.exists == True and alternatives_editor.stat.lnk_source != "/usr/bin/vim.basic" 
+  ignore_errors: yes
   tags: editor
 
 - name: update /etc/hostname

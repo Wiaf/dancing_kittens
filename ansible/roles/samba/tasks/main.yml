@@ -1,21 +1,23 @@
 ---
 
- #- name: add samba users
- # user:
- #   name: "{{ item }}"
- #   shell: /bin/false
- #   groups: "{{ item }}"
- # with_items: "{{ samba_users }}"
-
 - name: set samba user passwords
   shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
   with_items: "{{ samba_users }}"
   no_log: true
+  changed_when: false
 
 - name: install samba 
   apt: 
     name: "{{ samba_prerequirements }}"
     state: present
+
+- name: Make sure mountpoints exist
+  file:
+    path: "{{ samba_mount_path }}"
+    owner: wiaf
+    group: smbuser
+    mode: '1775'
+    state: directory
 
 - name: mount mountpoints
   ansible.posix.mount:
