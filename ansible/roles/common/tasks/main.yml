@@ -144,7 +144,7 @@
     dest: /usr/local/bin/
     mode: +x
   become: yes
-  tags: config_usrlocal
+  tags: common_config
     
 - name: update hostname in system
   command: hostname -F /etc/hostname        
