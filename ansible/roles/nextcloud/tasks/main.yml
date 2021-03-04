@@ -10,7 +10,7 @@
     state: present
   when: nextcloud_prerequirements
 
-- name: Get nextcloud 
+- name: Get nextcloud
   unarchive:
     src: https://download.nextcloud.com/server/releases/nextcloud-"{{nextcloud-version}}".zip
     dest: "{{ nextcloud_setup_dir }}"
