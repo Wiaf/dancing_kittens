@@ -96,21 +96,16 @@
 
 - name: Install required common and host specific packages
   apt:
-    name: "{{ item }}"
+    name: "[{{ packages_common }},{{ packages_host }}]"
     state: present
     install_recommends: yes 
-    force: yes
-  with_items:
-    - "[{{ packages_common }},{{ packages_host }}]"
   when: packages_host is defined
-  register: common_host
 
 - name: Install required common packages
   apt:
     name: "{{ packages_common }}"
     state: present
     install_recommends: yes 
-  when: common_host.changed
 
 - name: setting editor correctly
   block:
