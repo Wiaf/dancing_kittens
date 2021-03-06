@@ -94,18 +94,18 @@
   apt:
     upgrade: dist  
 
-- name: Install required common and host specific packages
-  apt:
-    name: "[{{ packages_common }},{{ packages_host }}]"
-    state: present
-    install_recommends: yes 
-  when: packages_host is defined
-
 - name: Install required common packages
   apt:
     name: "{{ packages_common }}"
     state: present
     install_recommends: yes 
+
+- name: Install required  host specific packages
+  apt:
+    name: "{{ packages_host }}"
+    state: present
+    install_recommends: yes 
+  when: packages_host is defined
 
 - name: setting editor correctly
   block:
@@ -146,6 +146,14 @@
   become: yes
   tags: common_config
     
+- name: Deploy userscripts
+  template:
+    src: "{{ lookup('file', '/mnt/f/Documents/projects/hidden_kittens/templates/youtube-dl.sh.j2') }}"
+    dest: /usr/local/bin/
+    mode: +x
+  become: yes
+  tags: common_config_ytdl
+
 - name: update hostname in system
   command: hostname -F /etc/hostname        
    
