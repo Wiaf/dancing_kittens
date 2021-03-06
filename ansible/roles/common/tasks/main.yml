@@ -143,6 +143,7 @@
     src: files/
     dest: /usr/local/bin/
     mode: +x
+    force: yes
   become: yes
   tags: common_config
     
