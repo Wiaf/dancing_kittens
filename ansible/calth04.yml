@@ -1,6 +1,0 @@
----
-
-- hosts: calth04
-#  tasks:
-#    - debug: var=ansible_hostname
-  roles: ''

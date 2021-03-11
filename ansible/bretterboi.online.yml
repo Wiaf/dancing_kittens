@@ -1,0 +1,21 @@
+---
+
+- hosts: bretterboi
+  roles: 
+  - common
+#  tasks:
+#    - debug: var=ansible_hostname
+
+- hosts: calth03
+  roles: 
+   - { role: nginx, tags: [ "nginx" ] }
+   - { role: php, tags: [ "php" ] }  
+  #- { role: rclone, tags: [ "rclone" ] }       
+  
+- hosts: calth04
+  roles:
+#   - { role: protonvpn, tags: [ "protovnVPN" ] }
+   - { role: mariadb, tags: [ "mariadb" ] }
+   - { role: php, tags: [ "php" ] }  
+   - { role: nextcloud, tags: [ "nextcloud" ] }  
+   #- { role: rclone, tags: [ "rclone" ] }       

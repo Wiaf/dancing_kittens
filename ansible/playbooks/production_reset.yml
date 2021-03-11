@@ -7,12 +7,15 @@
 - name: Run all prod environment
   import_playbook: common.yml
 
-- name: Run on calth01 
+- name: Run on calth01 ()
   import_playbook: calth01.yml
 
-- name: Run on calth02
+- name: Run on calth02 ()
   import_playbook: calth02.yml
 
-- name: Run on bretterboi.online
-  import_playbook: bretterboi.online.yml
+- name: Run on calth03 ()
+  import_playbook: calth03.yml
+
+- name: Run on calth04 ()
+  import_playbook: calth04.yml
   

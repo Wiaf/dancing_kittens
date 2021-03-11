@@ -2,3 +2,5 @@ samba_prerequirements:
 - samba 
 - samba-common 
 - samba-common-bin
+
+samba_workgroup: WORKGROUP

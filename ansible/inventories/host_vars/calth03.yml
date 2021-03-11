@@ -1,2 +1,2 @@
 packages_host:
-  -libssl1.1
+  - libssl1.1

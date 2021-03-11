@@ -153,7 +153,8 @@
     dest: /usr/local/bin/
     mode: +x
   become: yes
-  tags: common_config_ytdl
+  tags: common_config
+  ignore_errors: yes
 
 - name: update hostname in system
   command: hostname -F /etc/hostname        
