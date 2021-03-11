@@ -1,6 +1,11 @@
 samba_prerequirements:
 - samba 
 - samba-common 
-- samba-common-bin
 
 samba_workgroup: WORKGROUP
+samba_security: user
+samba_server_role: standalone server
+samba_allow_guests: "yes"
+browsable: "yes"
+read_only: "no"
+guest_okay: "no"

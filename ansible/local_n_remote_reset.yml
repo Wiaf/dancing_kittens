@@ -1,0 +1,15 @@
+---
+#tasks:
+#  - debug: var=ansible_hostname
+  
+- name: ensure common role has played
+  import_playbook: common.yml
+  
+
+- name: Run on remote (bretterboi.online)
+  import_playbook: bretterboi.online.yml
+  
+- name: Run locally (ithaka)
+  import_playbook: ithaka.local.yml
+
+

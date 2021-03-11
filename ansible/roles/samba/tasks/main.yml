@@ -4,27 +4,62 @@
   apt: 
     name: "{{ samba_prerequirements }}"
     state: present
+  become: true
+  register: result
+  until: result is successful
 
-- name: Add smbuser
+#- name: Add smbusers
+# user:
+#  name: "{{ item }}"
+#  shell: /bin/false
+# with_items: " {{ samba_users }} "
+- name: samba_groups | ensuring groups exist
+  group:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ samba_groups }}"
+  when: samba_groups is defined
+
+- name: samba_users | adding samba users to samba groups
   user:
-    name: smbuser
-    shell: /bin/false
-  
-- name: set samba user passwords
+    name: "{{ item[0]['name'] }}"
+    groups: "{{ item[1] }}"
+    append: yes
+  become: true
+  with_subelements:
+    - "{{ samba_users }}"
+    - groups
+
+- name: samba uses | set samba user passwords
   shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
   with_items: "{{ samba_users }}"
-  no_log: true
+  #no_log: true
   changed_when: false
 
-# - name: create_shares | creating shared directories
-  #file:
-  #  path: "{{ samba_share_name + '/' + item['name'] }}"
-  #  owner: "{{ item['owner']|default(omit) }}"
-  #  group: "{{ item['group']|}}"
-  #  mode: "{{ item['folder_perms']|default(omit) }}"
-  #  state: directory
-  #  become: true
-  #with_items: "{{ samba_shares }}"
+- name: create_shares | creating shared directories
+  file:
+    path: "{{ samba_share_name + '/' + item['name'] }}"
+    owner: "{{ item['owner']|default(omit) }}"
+    group: "{{ item['group']|}}"
+    mode: "{{ item['folder_perms']|default(omit) }}"
+    state: directory
+  become: true
+  with_items: "{{ samba_shares }}"
+
+- name: Copy new smb.conf
+  template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  tags: samba_config
+  notify: 
+    - restart smbd
+    - restart nmbd
+
 
 #- name: Make sure mountpoints exist
 #  file:
@@ -44,13 +79,6 @@
 #  notify: restart smbd
 #  ignore_errors: true
 #  when: samba_mount_path is defined
-
-- name: Copy new smb.conf
-  template:
-    src: "smb.conf.j2"
-    dest: /etc/samba/smb.conf
-  notify: restart smbd
-  tags: samba_config
 
 - name: copy fuck_datengrab.sh
   copy:
