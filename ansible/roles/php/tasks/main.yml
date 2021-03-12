@@ -1,3 +1,9 @@
+- name: install prerequirements 
+  apt: 
+    name: "{{ php_prerequirements }}"
+    state: present
+  when: php_prerequirements
+
 - name: Add an apt key by id from a keyserver
   apt_key:
     keyserver: hkps://keyserver.ubuntu.com
@@ -22,7 +28,7 @@
     name:
       - php{{ php_version }}-fpm
       - php{{ php_version }}-gd
-      #- "{{ php_db_extension[nc_db_type] }}"
+      - php{{ php_version }}-mysql
       - php{{ php_version }}-curl
       - php{{ php_version }}-xml
       - php{{ php_version }}-zip

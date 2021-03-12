@@ -9,25 +9,8 @@
     shell: /bin/bash
     append: yes
   become: yes
-  tags: user_wiaf
-  
-#- name: Deploy SSH Key 1/3
-#  authorized_key: 
-#    user: wiaf
-#    key: "{{ lookup('file', '/Users/wiaf/.ssh/id_rsa.pub') }}"
-#    state: present
-
-#- name: Deploy windows ssh key 2/3
-#  authorized_key:
-#    user: wiaf
-#    key:  "{{ lookup('file', '/Users/wiaf/.ssh/wiaf_pc01_id_rsa.pub') }}"
-#    state: present
-
-#- name: Deploy wsl ssh key 3/3
-#  authorized_key:
-#    user: wiaf
-#    key:  "{{ lookup('file', '/home/wiaf/.ssh/id_rsa.pub') }}"
-#    state: present
+  tags: user_config
+ 
 - name: check for wiaf authorized key foolder structure
   file:
     path: /home/wiaf/.ssh/
@@ -39,6 +22,11 @@
     src: files/authorized_keys
     dest: /home/wiaf/.ssh/authorized_keys
     owner: wiaf
+    group: wiaf
+    mode: 0644
+    force: yes
+    backup: yes
+  become: yes
 
 - name: enable passwordless sudo for sudo group   
   lineinfile:
@@ -72,7 +60,7 @@
   lineinfile: 
     dest: /etc/apt/apt.conf 
     regexp: '^APT::Cache-Limit' 
-    line: 'APT::Cache-Limit "1000000000";' 
+    line: 'APT::Cache-Limit "50000000";' 
     state: present 
     create: yes
 

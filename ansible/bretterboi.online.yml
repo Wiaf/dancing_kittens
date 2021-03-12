@@ -17,5 +17,5 @@
 #   - { role: protonvpn, tags: [ "protovnVPN" ] }
    - { role: mariadb, tags: [ "mariadb" ] }
    - { role: php, tags: [ "php" ] }  
-#   - { role: nextcloud, tags: [ "nextcloud" ] }  
+   - { role: nextcloud, tags: [ "nextcloud" ] }  
 #   - { role: rclone, tags: [ "rclone" ] }       

@@ -2,5 +2,5 @@
 nextcloud_prerequirements: 
 - unzip
 
-nextcloud_version: 20.0.7
+nextcloud_version: 21.0.0
 nextcloud_setup_dir: /var/www/nextcloud
