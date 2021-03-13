@@ -3,6 +3,7 @@
   roles:
    - common
   gather_facts: no
+  become: yes
 
 - hosts: calth01
   roles:

@@ -13,7 +13,7 @@
 
 - name: add additional repos
   apt_repository:
-    repo: 'deb http://ppa.launchpad.net/ondrej/php/ubuntu bionic main'
+    repo: 'deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main'
     validate_certs: true
     update_cache: true
     state: present
@@ -26,6 +26,8 @@
 - name: install additional packages
   apt:
     name:
+      - php{{ php_version }}-common
+      - php{{ php_version }}-cli
       - php{{ php_version }}-fpm
       - php{{ php_version }}-gd
       - php{{ php_version }}-mysql
@@ -34,17 +36,22 @@
       - php{{ php_version }}-zip
       - php{{ php_version }}-intl
       - php{{ php_version }}-mbstring
-      - php{{ php_version }}-json
+      - php{{ php_version }}-redis
       - php{{ php_version }}-bz2
       - php{{ php_version }}-ldap
       - php{{ php_version }}-bcmath  
       - php{{ php_version }}-gmp
+      - php{{ php_version }}-ctype
+      - php{{ php_version }}-imagick
+#  php-json is now always active (v8)
+#      - php{{ php_version }}-json
       - php-apcu
       - php-imagick
       - php-smbclient
       - php-redis
     autoremove: true
     state: latest
+  tags: php_mods
 
 - name: configure php
   copy:
