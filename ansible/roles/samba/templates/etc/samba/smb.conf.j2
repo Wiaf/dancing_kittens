@@ -1,4 +1,4 @@
-# Global parameters
+ Global parameters
 {% if samba_create_domain_controller is defined and samba_create_domain_controller %}
 [global]
         dns forwarder = {{ samba_ad_info.dns_forwarder }}
@@ -75,16 +75,21 @@
 
 {%   for item in samba_shares %}
 [{{ item.name }}]
+{%     if item.browsable is defined %}
 browsable = {{ item.browsable|lower }}
+{%     endif %}
+{%     if item.guest_ok is defined %}
 guest ok = {{ item.guest_ok|lower }}
-path = {{ samba_share_name }}/{{ item.name }}
+{%     endif %}
+path = {{ samba_share_path }}/{{ item.name }}
 {%     if item.read_only is defined %}
 read only = {{ item.read_only|lower }}
 {%     endif %}
 {%     if item.valid_users is defined %}
 valid users = {{ item.valid_users }}
 {%     endif %}
+{%     if item.writable is defined %}
 writable = {{ item.writable|lower }}
-
+{%     endif %}
 {%   endfor %}
 {% endif %}

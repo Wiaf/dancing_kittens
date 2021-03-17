@@ -8,11 +8,6 @@
   register: result
   until: result is successful
 
-#- name: Add smbusers
-# user:
-#  name: "{{ item }}"
-#  shell: /bin/false
-# with_items: " {{ samba_users }} "
 - name: samba_groups | ensuring groups exist
   group:
     name: "{{ item }}"
@@ -21,64 +16,20 @@
   with_items: "{{ samba_groups }}"
   when: samba_groups is defined
 
-- name: samba_users | adding samba users to samba groups
-  user:
-    name: "{{ item[0]['name'] }}"
-    groups: "{{ item[1] }}"
-    append: yes
+- name: create_shares | creating shared directories
+  file:
+    path: "{{ samba_share_path + '/' + item['name'] }}"
+    owner: "{{ item['owner']|default(omit) }}"
+    group: "{{ item['group']|default(omit) }}"
+    mode: "{{ item['folder_perms'] }}"
+    state: directory
   become: true
-  with_subelements:
-    - "{{ samba_users }}"
-    - groups
+  with_items: "{{ samba_shares }}"
 
-- name: samba uses | set samba user passwords
-  shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
-  with_items: "{{ samba_users }}"
-  #no_log: true
-  changed_when: false
-  when: smbpasswd is defined
+- include_tasks: samba_users.yml
+  when: samba_users is defined
 
 - include_tasks: create_shares.yml
+  when: samba_shares is defined
 
-- name: Copy new smb.conf
-  template:
-    src: smb.conf.j2
-    dest: /etc/samba/smb.conf
-    owner: root
-    group: root
-    mode: 0644
-    backup: yes
-  tags: samba_config
-  notify:
-    - restart smbd
-    - restart nmbd
-
-
-#- name: Make sure mountpoints exist
-#  file:
-#    path: "{{ samba_mount_path }}"
-#    owner: wiaf
-#    group: smbuser
-#    mode: '1775'
-#    state: directory
-
-#- name: mount mountpoints
-#  ansible.posix.mount:
-#    path: "{{ samba_mount_path }}"
-#    src: "UUID={{ item }}"
-#    fstype: ext4
-#    opts: noexec,nodev,noatime,nodiratime
-#    state: mounted
-#  notify: restart smbd
-#  ignore_errors: true
-#  when: samba_mount_path is defined
-
-- name: copy fuck_datengrab.sh
-  copy:
-    src: fuck_datengrab.sh
-    dest: /usr/local/bin/fuck_datengrab.sh
-    owner: root
-    group: root
-    mode: '744'
-  tags: samba_recovery
-  when: datengrab
+- include: config_samba.yml

@@ -1,5 +1,11 @@
 - name: restart smbd
-  service: 
+  service:
     name: smbd
-    enabled: yes 
+    enabled: yes
+    state: restarted
+
+- name: restart nmbd
+  service:
+    name: smbd
+    enabled: yes
     state: restarted
