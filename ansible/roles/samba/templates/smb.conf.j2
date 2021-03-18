@@ -75,9 +75,13 @@
 
 {%   for item in samba_shares %}
 [{{ item.name }}]
+{%     if item.browsable is defined %}
 browsable = {{ item.browsable|lower }}
+{%     endif %}
+{%     if item.guest_ok is defined %}
 guest ok = {{ item.guest_ok|lower }}
-path = {{ samba_share_name }}/{{ item.name }}
+{%     endif %}
+path = {{ samba_mount_path }}/{{ item.name }}
 {%     if item.read_only is defined %}
 read only = {{ item.read_only|lower }}
 {%     endif %}

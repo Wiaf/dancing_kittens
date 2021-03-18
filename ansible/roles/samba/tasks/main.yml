@@ -38,7 +38,7 @@
   changed_when: false
   when: smbpasswd is defined
 
-- include_tasks: create_shares.yml
+#- include_tasks: create_shares.yml
 
 - name: Copy new smb.conf
   template:

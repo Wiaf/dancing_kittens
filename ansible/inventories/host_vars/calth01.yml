@@ -1,5 +1,4 @@
-packages_host:
-  - 
+packages_host: ''
 
 samba_shares:
 #[]
@@ -14,7 +13,7 @@ samba_shares:
   samba_share_name: "kittycastle"
   samba_mount_path: "/media/kittycastle"
   uuid: "fdc076e6-98ce-44ca-b081-e3200beeefc2"
-  #options: "rw,seclabel,relatime,attr2,inode64,noquota" 
+  #options: "rw,seclabel,relatime,attr2,inode64,noquota"
 
 - name: "music01"
   samba_share_name: "music01"
