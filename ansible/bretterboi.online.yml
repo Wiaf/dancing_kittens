@@ -9,12 +9,12 @@
 - hosts: calth03
   roles:
    - { role: nginx, tags: [ "nginx" ] }
-#   - { role: php, tags: [ "php" ] }
+   - { role: php, tags: [ "php" ] }
 #   - { role: rclone, tags: [ "rclone" ] }
 
 - hosts: calth04
   roles:
-#   - { role: php, tags: [ "php" ] }
+   - { role: php, tags: [ "php" ] }
    - { role: snapd, tags: [ "snapd" ] }
 #   - { role: protonvpn, tags: [ "protovnVPN" ] }
 #   - { role: mariadb, tags: [ "mariadb" ] }

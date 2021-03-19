@@ -16,6 +16,24 @@
   with_items: "{{ samba_groups }}"
   when: samba_groups is defined
 
+- block:
+  - name: samba_users | adding samba users to samba groups
+    user:
+      name: "{{ item[0]['name'] }}"
+      groups: "{{ item[1] }}"
+      append: yes
+    become: true
+    no_log: true
+    with_subelements:
+      - "{{ samba_users }}"
+      - groups
+
+  - name: samba_users | creating samba user passwords
+    shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
+    become: true
+    no_log: true
+    with_items: "{{ samba_users }}"
+
 - name: create_shares | creating shared directories
   file:
     path: "{{ samba_share_path + '/' + item['name'] }}"
@@ -25,11 +43,16 @@
     state: directory
   become: true
   with_items: "{{ samba_shares }}"
-
-- include_tasks: samba_users.yml
-  when: samba_users is defined
-
-- include_tasks: create_shares.yml
   when: samba_shares is defined
 
-- include: config_samba.yml
+- name: config_samba | configuring samba
+  template:
+    src: etc/samba/smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  notify:
+    - restart nmbd
+    - restart smbd
