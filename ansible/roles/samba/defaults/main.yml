@@ -1,6 +1,13 @@
 samba_prerequirements:
 - samba
 - samba-common
+<<<<<<< HEAD
+
+samba_workgroup: WORKGROUP
+samba_security: user
+samba_server_role: standalone server
+samba_shares:
+=======
 samba_workgroup: WORKGROUP
 samba_security: user
 samba_server_role: standalone server
@@ -10,4 +17,5 @@ samba_groups:
 samba_shares:
   []
 samba_users:
+>>>>>>> 26eaf3c148fa5d291bab02309aff334fd904b834
   []
