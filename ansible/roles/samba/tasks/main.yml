@@ -61,6 +61,15 @@
   with_items: "{{ samba_shares }}"
   when: samba_shares is defined
 
+- name: Mount devices to shares
+  mount:
+    path: "{{ samba_share_path + '/' + item['name'] }}"
+    src: UUID="{{ uuid  }}"
+    fstype: "{{ options }}"
+    state: present
+  with_items: "{{ samba_shares }}"
+  when: samba_shares is defined
+
 - name: config_samba | configuring samba
   template:
     src: etc/samba/smb.conf.j2
