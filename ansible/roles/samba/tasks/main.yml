@@ -64,8 +64,8 @@
 - name: Mount devices to shares
   mount:
     path: "{{ samba_share_path + '/' + item['name'] }}"
-    src: UUID="{{ uuid  }}"
-    fstype: "{{ options }}"
+    src: UUID="{{ item['uuid'] }}"
+    fstype: "{{ item['options'] }}"
     state: present
   with_items: "{{ samba_shares }}"
   when: samba_shares is defined

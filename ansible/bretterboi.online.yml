@@ -10,6 +10,7 @@
   roles:
    - { role: nginx, tags: [ "nginx" ] }
    - { role: php, tags: [ "php" ] }
+   - { role: snapd, tags: [ "snapd" ] }
 #   - { role: rclone, tags: [ "rclone" ] }
 
 - hosts: calth04

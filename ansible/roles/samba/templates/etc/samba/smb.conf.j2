@@ -1,4 +1,3 @@
-<<<<<<< HEAD:ansible/roles/samba/templates/smb.conf.j2
 # Global parameters
 {% if samba_create_domain_controller is defined and samba_create_domain_controller %}
 [global]
@@ -92,7 +91,6 @@ valid users = {{ item.valid_users }}
 writable = {{ item.writable|lower }}
 
 {%   endfor %}
-=======
  Global parameters
 {% if samba_create_domain_controller is defined and samba_create_domain_controller %}
 [global]
@@ -187,5 +185,4 @@ valid users = {{ item.valid_users }}
 writable = {{ item.writable|lower }}
 {%     endif %}
 {%   endfor %}
->>>>>>> 26eaf3c148fa5d291bab02309aff334fd904b834:ansible/roles/samba/templates/etc/samba/smb.conf.j2
 {% endif %}
