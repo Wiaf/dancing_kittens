@@ -1,0 +1,22 @@
+---
+#- hosts: ithaka
+#  roles:
+#   - common
+#  gather_facts: no
+#  become: yes
+
+- hosts: calth01
+  roles:
+   - { role: raspi-config, tags: [ "raspi-config" ] }
+   - { role: hdparm, tags: [ "hdparm" ] }
+   - { role: samba, tags: [ "samba" ] }
+   - { role: timemachine, tags: [ "timemachine" ] }
+
+#    - { role: pi_wifi_bridge, tags: [ "pi_wifi_bridge"] }
+
+- hosts: calth02
+  roles:
+    - { role: raspi-config, tags: [ "raspi-config" ] }
+    - { role: hdparm, tags: [ "hdparm" ] }
+    - { role: samba, tags: [ "samba" ] }
+    - { role: timemachine, tags: [ "timemachine" ] }

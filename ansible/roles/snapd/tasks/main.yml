@@ -1,0 +1,16 @@
+- name: install snapd
+  apt:
+    name: snapd
+    state: present
+
+- name: install snaps
+  snap:
+    name: "{{ snaps }}"
+    classic: yes
+    state: present
+#$ sudo systemctl enable --now snapd.socket
+#    $ sudo systemctl is-active snapd.socket
+#$ sudo systemctl status snapd.socket
+#$ sudo systemctl is-enabled snapd.socket
+
+#ln -s /var/lib/snapd/snaps/ /snap/

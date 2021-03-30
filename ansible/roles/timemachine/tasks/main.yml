@@ -1,0 +1,39 @@
+---
+- name: add samba users
+  user:
+    name: "{{ timemachine_user }}"
+    shell: /bin/false
+
+- name: install timemachine prerequirements
+  apt: 
+    name: "{{ timemachine_prerequirements }}"
+    state: latest
+  notify: 
+    - restart avahi
+    - restart netatalk 
+
+- name: Make sure mountpoints exist
+  file:
+    path: "{{ timemachine_mount_path }}"
+    owner: "{{ timemachine_user }}"
+    group: "{{ timemachine_group }}"
+    mode: '1775'
+    state: directory
+
+- name: configure avahi-daemon service
+  copy:
+    src: samba.service
+    dest: /etc/avahi/services/samba.service
+  notify:
+    - restart avahi
+
+- name: setup nsswitch.conf
+  lineinfile:
+    dest: /etc/nsswitch.conf
+    regexp: "^hosts:          files mdns4_minimal [NOTFOUND=return] dns"
+    line: "hosts:          files mdns4_minimal [NOTFOUND=return] dns mdns4 mdns"
+    state: present
+    backup: yes
+  notify: 
+    - restart avahi
+    - restart netatalk

@@ -1,0 +1,8 @@
+mysql_nextcloud_user: nextcloud_db
+#php_version: 8.0
+packages_host:
+  - certbot
+#  - clamav
+#  - clamav-daemon
+snaps:
+  - nextcloud

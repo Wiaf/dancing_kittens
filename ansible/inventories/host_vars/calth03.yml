@@ -1,0 +1,5 @@
+packages_host:
+  []
+#php_version:  8.0
+snaps:
+  - pihole-snap

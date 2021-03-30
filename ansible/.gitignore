@@ -1,0 +1,5 @@
+.*
+!.git*
+*.retry
+__pycache__
+*.py[cod]

@@ -1,0 +1,23 @@
+packages_host:
+  []
+
+samba_shares:
+#[]
+- name: "timemachine"
+  folder_perms: "0770"
+  uuid: "2edfdc395-7655-47ee-9bcc-07e029d13f26"
+  options: "noexec,nodev,noatime,nodiratime"
+
+- name: "kittycastle"
+  folder_perms: "0775"
+  browsable: "yes"
+  uuid: "fdc076e6-98ce-44ca-b081-e3200beeefc2"
+  options: "noexec,nodev,noatime,nodiratime"
+
+- name: "music01"
+  folder_perms: "0775"
+  uuid: "762164b5-663a-4ded-b1fd-c033e82680d9"
+  browsable: "yes"
+  read_only: "no"
+  guest_okay: "no"
+  options: "nodev,noatime,nodiratime"

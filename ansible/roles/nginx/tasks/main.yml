@@ -1,0 +1,17 @@
+---
+- name: Update apt cache
+  apt: 
+    update_cache: yes 
+    cache_valid_time: 86400
+  changed_when: false
+
+- name: install role prerequisites
+  apt:
+    name: "{{ nginx_prerequirements }}"
+    state: present
+  when: nginx_prerequirements
+
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present

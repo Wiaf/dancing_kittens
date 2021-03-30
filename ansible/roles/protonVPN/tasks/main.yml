@@ -1,0 +1,21 @@
+---
+# always try to use HTTPS. I'm not sure why the proton folks don't provide it.
+- name: add protonvpn apt-key
+  apt_key: 
+    url: https://repo.protonvpn.com/debian/public_key.asc
+    state: present 
+
+- name: add nginx apt repository
+  apt_repository: 
+    repo: 'deb https://repo.protonvpn.com/debian unstable main' 
+    state: present 
+    filename: protonvpn
+    update_cache: yes
+
+- name: install protonvpn
+  apt: 
+    name: protonvpn
+    state: present
+    update_cache: yes
+
+

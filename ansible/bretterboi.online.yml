@@ -1,0 +1,14 @@
+---
+
+- hosts: bretterboi
+  roles:
+  - common
+
+- hosts: calth03
+  roles:
+   - { role: nginx, tags: [ "nginx" ] }
+   - { role: php, tags: [ "php" ] }
+
+- hosts: calth04
+  roles:
+   - { role: snapd, tags: [ "snapd" ] }
