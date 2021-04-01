@@ -1,16 +1,16 @@
 ---
-- name: add samba users
+- name: add timemeachine users
   user:
     name: "{{ timemachine_user }}"
     shell: /bin/false
 
 - name: install timemachine prerequirements
-  apt: 
+  apt:
     name: "{{ timemachine_prerequirements }}"
     state: latest
-  notify: 
+  notify:
     - restart avahi
-    - restart netatalk 
+    - restart netatalk
 
 - name: Make sure mountpoints exist
   file:
@@ -34,6 +34,6 @@
     line: "hosts:          files mdns4_minimal [NOTFOUND=return] dns mdns4 mdns"
     state: present
     backup: yes
-  notify: 
+  notify:
     - restart avahi
     - restart netatalk

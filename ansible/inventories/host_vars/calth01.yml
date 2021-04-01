@@ -5,13 +5,16 @@ samba_shares:
 #[]
 - name: "timemachine"
   folder_perms: "0770"
-  uuid: "2edfdc395-7655-47ee-9bcc-07e029d13f26"
+  uuid: "fdc076e6-98ce-44ca-b081-e3200beeefc2"
+  fstype: "ext4"
   options: "noexec,nodev,noatime,nodiratime"
+  timemachine: "yes"
 
 - name: "kittycastle"
   folder_perms: "0775"
   browsable: "yes"
-  uuid: "fdc076e6-98ce-44ca-b081-e3200beeefc2"
+  fstype: "ext4"
+  uuid: "edfdc395-7655-47ee-9bcc-07e029d13f26"
   options: "noexec,nodev,noatime,nodiratime"
 
 - name: "music01"

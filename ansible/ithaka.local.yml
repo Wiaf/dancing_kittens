@@ -12,8 +12,6 @@
    - { role: samba, tags: [ "samba" ] }
    - { role: timemachine, tags: [ "timemachine" ] }
 
-#    - { role: pi_wifi_bridge, tags: [ "pi_wifi_bridge"] }
-
 - hosts: calth02
   roles:
     - { role: raspi-config, tags: [ "raspi-config" ] }

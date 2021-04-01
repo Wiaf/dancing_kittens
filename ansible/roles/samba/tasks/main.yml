@@ -8,22 +8,19 @@
   register: result
   until: result is successful
 
-- name: samba_users | adding samba users to samba groups
-  user:
-    name: "{{ item[0]['name'] }}"
-    groups: "{{ item[1] }}"
-    append: yes
+- name: config_samba | configuring samba
+  template:
+    src: etc/samba/smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0644
   become: true
-  no_log: true
-  with_subelements:
-    - "{{ samba_users }}"
-    - groups
+  notify:
+    - restart nmbd
+    - restart smbd
+  tags: samba_config
 
-- name: samba_users | creating samba user passwords
-  shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
-  become: true
-  no_log: true
-  with_items: "{{ samba_users }}"
 - name: samba_groups | ensuring groups exist
   group:
     name: "{{ item }}"
@@ -39,7 +36,7 @@
       groups: "{{ item[1] }}"
       append: yes
     become: true
-    no_log: true
+   # no_log: true
     with_subelements:
       - "{{ samba_users }}"
       - groups
@@ -47,10 +44,8 @@
   - name: samba_users | creating samba user passwords
     shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
     become: true
-    no_log: true
+#    no_log: true
     with_items: "{{ samba_users }}"
-  include_vars:
-    []
 
 - name: create_shares | creating shared directories
   file:
@@ -67,19 +62,11 @@
   mount:
     path: "{{ samba_share_path + '/' + item['name'] }}"
     src: UUID="{{ item['uuid'] }}"
-    fstype: "{{ item['options'] }}"
-    state: present
+    fstype: "{{ item['fstype'] }}"
+    opts: "{{ item['options'] }}"
+    state: mounted
   with_items: "{{ samba_shares }}"
-  when: samba_shares is defined
-
-- name: config_samba | configuring samba
-  template:
-    src: etc/samba/smb.conf.j2
-    dest: /etc/samba/smb.conf
-    owner: root
-    group: root
-    mode: 0644
-  become: true
   notify:
-    - restart nmbd
-    - restart smbd
+  - restart smbd
+  - restart nmbd
+  when: samba_shares is defined
