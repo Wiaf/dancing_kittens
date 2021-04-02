@@ -9,6 +9,7 @@ samba_shares:
   fstype: "ext4"
   options: "noexec,nodev,noatime,nodiratime"
   timemachine: "yes"
+  valid_users: "smbuser, timemachine, wiaf"
 
 - name: "kittycastle"
   folder_perms: "0775"
@@ -16,6 +17,7 @@ samba_shares:
   fstype: "ext4"
   uuid: "edfdc395-7655-47ee-9bcc-07e029d13f26"
   options: "noexec,nodev,noatime,nodiratime"
+  valid_users: "smbuser, wiaf"
 
 - name: "music01"
   folder_perms: "0775"
