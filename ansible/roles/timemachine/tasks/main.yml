@@ -12,18 +12,17 @@
     - restart avahi
     - restart netatalk
 
-- name: Make sure mountpoints exist
-  file:
-    path: "{{ timemachine_mount_path }}"
-    owner: "{{ timemachine_user }}"
-    group: "{{ timemachine_group }}"
-    mode: '1775'
-    state: directory
-
 - name: configure avahi-daemon service
   copy:
     src: samba.service
     dest: /etc/avahi/services/samba.service
+  notify:
+    - restart avahi
+
+- name: deploy afp.conf
+  template:
+    src: afp.conf.j2
+    dest: /etc/netatalk/afp.conf
   notify:
     - restart avahi
 
