@@ -1,8 +1,11 @@
 mysql_nextcloud_user: nextcloud_db
 #php_version: 8.0
-packages_host:
-  - certbot
+packages_host: ''
 #  - clamav
 #  - clamav-daemon
 snaps:
   - nextcloud
+  - certbot
+
+domains:
+  - bretterboi.online

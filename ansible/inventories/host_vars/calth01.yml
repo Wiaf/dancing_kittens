@@ -1,23 +1,17 @@
 packages_host:
-  []
+  - systemd
+
+php_version:  7.3
 
 samba_shares:
 #[]
-- name: "timemachine"
-  folder_perms: "0770"
-  uuid: "fdc076e6-98ce-44ca-b081-e3200beeefc2"
-  fstype: "ext4"
-  options: "noexec,nodev,noatime,nodiratime"
-  timemachine: "yes"
-  valid_users: "smbuser, timemachine, wiaf"
-
 - name: "kittycastle"
   folder_perms: "0775"
   browsable: "yes"
   fstype: "ext4"
-  uuid: "edfdc395-7655-47ee-9bcc-07e029d13f26"
+  uuid: "458430dd-aab0-4031-a16c-81786d1dd7d7"
   options: "noexec,nodev,noatime,nodiratime"
-  valid_users: "smbuser, wiaf"
+  valid_users: "smbuser, wiaf, timemachine"
 
 - name: "music01"
   folder_perms: "0775"

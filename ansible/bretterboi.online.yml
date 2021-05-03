@@ -12,3 +12,4 @@
 - hosts: calth04
   roles:
    - { role: snapd, tags: [ "snapd" ] }
+   - { role: "youtube-dl", tags: [ "youtube-dl" ] }
