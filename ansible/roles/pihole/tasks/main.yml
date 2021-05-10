@@ -50,6 +50,7 @@
     - name: clone config scripts
       git:
        repo: git@github.com:jacklul/pihole-updatelists.git
+       dest: /tmp/{{ pihole_temp }}/
 
     - name: run installer
       shell:
