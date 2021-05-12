@@ -20,11 +20,14 @@
   notify:
     - restart dhcpcd
 
+#- name: absolutely ensure quad9 dns for resolving
+
+
 - name: download install script
   block:
     - name:
       get_url:
-        url: https://raw.githubusercontent.com/pi-hole/pi-hole/master/automated%20install/basic-install.sh
+        url: https://github.com/pi-hole/pi-hole/blob/master/automated%20install/basic-install.sh
         dest: ~/pihole-install.sh
         mode: u+rwx
 
