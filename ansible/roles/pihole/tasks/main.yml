@@ -23,17 +23,18 @@
 #- name: absolutely ensure quad9 dns for resolving
 
 
-- name: download install script
-  block:
-    - name:
+- block:
+    - name: download install script
       get_url:
-        url: https://github.com/pi-hole/pi-hole/blob/master/automated%20install/basic-install.sh
+        url: https://raw.githubusercontent.com/pi-hole/pi-hole/master/automated%20install/basic-install.sh
         dest: ~/pihole-install.sh
         mode: u+rwx
 
     - name: run install script
       shell: ~/pihole-install.sh --unattended
+
   when: not pihole_installed
+
 
 ## list scripts
 - name: install required packages

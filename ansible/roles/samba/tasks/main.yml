@@ -29,23 +29,22 @@
   with_items: "{{ samba_groups }}"
   when: samba_groups is defined
 
-- block:
-  - name: samba_users | adding samba users to samba groups
-    user:
-      name: "{{ item[0]['name'] }}"
-      groups: "{{ item[1] }}"
-      append: yes
-    become: true
-   # no_log: true
-    with_subelements:
-      - "{{ samba_users }}"
-      - groups
+- name: samba_users | adding samba users to samba groups
+  user:
+    name: "{{ item[0]['name'] }}"
+    groups: "{{ item[1] }}"
+    append: yes
+  become: true
+  no_log: true
+  with_subelements:
+    - "{{ samba_users }}"
+    - groups
 
-  - name: samba_users | creating samba user passwords
-    shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
-    become: true
-#    no_log: true
-    with_items: "{{ samba_users }}"
+- name: samba_users | creating samba user passwords
+  shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
+  become: true
+  no_log: true
+  with_items: "{{ samba_users }}"
 
 - name: create_shares | creating shared directories
   file:

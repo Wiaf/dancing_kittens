@@ -1,5 +1,4 @@
 ---
-
 - name: Add a new user named wiaf
   user:
     name: wiaf
@@ -64,20 +63,6 @@
     line: 'APT::Cache-Limit "100000000";'
     state: present
     create: yes
-
-- name: remove install proxy
-  lineinfile:
-    dest: /etc/apt/apt.conf
-    regexp: '^Acquire::http::Proxy'
-    state: absent
-
-- name: Update apt-get cache
-  apt:
-    update_cache: yes
-    cache_valid_time: 3600
-  ignore_errors: true
-  changed_when: false
-  register: apt_cache
 
 - name: Update System
   apt:
