@@ -1,16 +1,25 @@
 ---
-- name: Add a new user named wiaf
+
+- include_vars: credentials.yml
+- name: Update Root user's Password
   user:
     name: wiaf
-    groups:
-      - sudo
-      - users
-    shell: /bin/bash
-    append: yes
-  become: yes
-  tags: user_config
+    update_password: always
+    password: "{{ wiafpassword }}"
 
-- name: check for wiaf authorized key foolder structure
+- name: Update smbuser
+  user:
+    name: smbuser
+    update_password: always
+    password: "{{ smbpassword }}"
+
+- name: Update timemachine
+  user:
+    name: timemachine
+    update_password: always
+    password: "{{ timepassword }}"
+
+- name: check for wiaf authorized key folder structure
   file:
     path: /home/wiaf/.ssh/
     owner: wiaf

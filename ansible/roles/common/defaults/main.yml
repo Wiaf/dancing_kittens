@@ -26,3 +26,6 @@ packages_common:
   - net-tools
   - software-properties-common
   - rsyslog
+  - vim
+
+shell: /bin/bash

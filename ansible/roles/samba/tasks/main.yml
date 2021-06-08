@@ -68,4 +68,5 @@
   notify:
   - restart smbd
   - restart nmbd
+  ignore_errors: yes
   when: samba_shares is defined

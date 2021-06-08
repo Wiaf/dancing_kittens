@@ -31,24 +31,24 @@ preferred master = yes
 {%   for item in samba_shares %}
 [{{ item.name }}]
 {%  if item.browsable is defined %}
-browsable = {{ item.browsable|lower }}
+   browsable = {{ item.browsable|lower }}
 {%  endif %}
 {%  if item.guest_ok is defined %}
-guest ok = {{ item.guest_ok|lower }}
+   guest ok = {{ item.guest_ok|lower }}
 {%  endif %}
-path = {{ samba_share_path }}/{{ item.name }}
+   path = {{ samba_share_path }}/{{ item.name }}
 {%  if item.read_only is defined %}
-read only = {{ item.read_only|lower }}
+   read only = {{ item.read_only|lower }}
 {%  endif %}
 {%  if item.valid_users is defined %}
-valid users = {{ item.valid_users }}
+   valid users = {{ item.valid_users }}
 {%  endif %}
 {%  if item.writable is defined %}
-writable = {{ item.writable|lower }}
+   writable = {{ item.writable|lower }}
 {%  endif %}
 {%  if item.timemachine is defined %}
-vfs objects = catia fruit streams_xattr
-fruit:time machine = yes
+   vfs objects = catia fruit streams_xattr
+   fruit:time machine = yes
 {%  endif %}
 {%   endfor %}
 {% endif %}
