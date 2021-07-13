@@ -17,13 +17,3 @@ samba_shares:
 #  guest_okay: "no"
 #  options: "nodev,noatime,nodiratime"
 #  valid_users: "wiaf"
-
-- name: "timemachine"
-  folder_perms: "0775"
-  uuid: "0965124a-9e36-4eb1-af7b-32ad63385cf0"
-  browsable: "yes"
-  fstype: "ext4"
-  read_only: "no"
-  guest_okay: "no"
-  options: "nodev,noatime,nodiratime"
-  valid_users: "wiaf, timemachine"

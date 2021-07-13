@@ -16,18 +16,11 @@
 
 - name: "Create user accounts and add users to groups"
   user:
-    name: "{{ item }}"
-    groups: " {{ groups }}"
+    name: "{{ item.name }}"
+    groups: " {{ item.groups }}"
     append: yes
     shell: /bin/bash
   loop: "{{ users }}"
-
-- name: "Add authorized keys"
-  authorized_key:
-    user: "{{ item }}"
-    key: "{{ lookup('file', '~/.ssh/'+ item + '.pub') }}"
-    state: present
-  with_items: "{{ users }}"
 
 - name: Deploy authorized keys
   copy:
@@ -39,6 +32,8 @@
     force: yes
     backup: yes
   become: yes
+  notiy:
+    - restart ssh
 
 - name: Disable Password Authentication
   lineinfile:

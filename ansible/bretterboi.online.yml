@@ -6,8 +6,9 @@
 
 - hosts: calth03
   roles:
+    - { role: nginx, tags: [ "nginx" ] }
     - { role: php, tags: [ "php" ] }
-    - { role: nginx, tags: [ "nxing" ] }
+    - { role: wordpress, tags: [ "nginx" ] }
 
 - hosts: calth04
   roles:
