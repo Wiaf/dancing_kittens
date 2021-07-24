@@ -9,15 +9,14 @@
   roles:
    - { role: raspi-config, tags: [ "raspi-config" ] }
    - { role: hdparm, tags: [ "hdparm" ] }
-   - { role: samba, tags: [ "samba" ] }
-   - { role: timemachine, tags: [ "timemachine" ] }
    - { role: pihole, tags: [ "pihole" ] }
    - { role: ansible-rclone, tags: [ "rclone" ] }
-
 
 - hosts: calth02
   roles:
    - { role: raspi-config, tags: [ "raspi-config" ] }
    - { role: hdparm, tags: [ "hdparm" ] }
    - { role: samba, tags: [ "samba" ] }
-   - { role: timemachine, tags: [ "timemachine" ] }
+   - { role: ansible-rclone, tags: [ "rclone" ] }
+   - { role: yotube-dl, tags: [ "yotube-dl" ] }
+   - { role: rsyslog, tags: [ "rsyslog" ] }

@@ -1,19 +1,33 @@
-samba_shares:
-#[]
-- name: "kittycastle"
-  folder_perms: "0775"
-  browsable: "yes"
-  fstype: "ext4"
-  uuid: "e42ee214-836e-4884-b02e-15c69f96a033"
-  options: "noexec,nodev,noatime,nodiratime"
-  valid_users: "wiaf, timemachine"
+packages_host:
+  - systemd
+  - hfsplus
+  - hfsutils
+  - hfsprogs
 
-#- name: "music01"
-#  folder_perms: "0775"
-#  uuid: "762164b5-663a-4ded-b1fd-c033e82680d9"
-#  browsable: "yes"
-#  fstype: "ext4"
-#  read_only: "no"
-#  guest_okay: "no"
-#  options: "nodev,noatime,nodiratime"
-#  valid_users: "wiaf"
+samba_shares:
+- name: "backups"
+  samba_share_path: "/var/backups"
+  uuid: "518cc0cc-f129-349d-8b94-cf192ccbb08e"
+  owner: "wiaf"
+  group: "wiaf"
+  folder_perms: "1775"
+  fstype: "hfsplus"
+  options: "noexec,nodev,noatime,nodiratime"
+
+- name: "kittycastle"
+  samba_share_path: "/var/kittycastle"
+  uuid: "e42ee214-836e-4884-b02e-15c69f96a033"
+  owner: "wiaf"
+  group: "wiaf"
+  folder_perms: "1775"
+  fstype: "ext4"
+  options: "defaults"
+
+rclone_version: "1.55.1"
+rclone_configs: ""
+rclone_arch: "arm"
+
+
+
+#  - name: Brettercloud
+#    properties:

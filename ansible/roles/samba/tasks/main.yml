@@ -18,7 +18,14 @@
   become: true
   with_items: "{{ samba_shares }}"
   when: samba_shares is defined
-
+- name: copying file with playbook
+  become: true
+  copy:
+    src: smb.conf
+    dest: /etc/samba/smb.conf
+    owner: apache
+    group: apache
+    mode: 0644
 - name: Mount devices to shares
   mount:
     path: "{{ samba_share_path + '/' + item['name'] }}"
