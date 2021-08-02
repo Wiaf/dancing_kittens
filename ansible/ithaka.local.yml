@@ -15,8 +15,8 @@
 - hosts: calth02
   roles:
    - { role: raspi-config, tags: [ "raspi-config" ] }
-   - { role: hdparm, tags: [ "hdparm" ] }
+#   - { role: hdparm, tags: [ "hdparm" ] }
    - { role: samba, tags: [ "samba" ] }
    - { role: ansible-rclone, tags: [ "rclone" ] }
-   - { role: yotube-dl, tags: [ "yotube-dl" ] }
+   - { role: youtube-dl, tags: [ "youtube-dl" ] }
    - { role: rsyslog, tags: [ "rsyslog" ] }

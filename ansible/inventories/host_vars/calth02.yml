@@ -5,14 +5,6 @@ packages_host:
   - hfsprogs
 
 samba_shares:
-- name: "backups"
-  samba_share_path: "/var/backups"
-  uuid: "518cc0cc-f129-349d-8b94-cf192ccbb08e"
-  owner: "wiaf"
-  group: "wiaf"
-  folder_perms: "1775"
-  fstype: "hfsplus"
-  options: "noexec,nodev,noatime,nodiratime"
 
 - name: "kittycastle"
   samba_share_path: "/var/kittycastle"
@@ -27,7 +19,7 @@ rclone_version: "1.55.1"
 rclone_configs: ""
 rclone_arch: "arm"
 
-
+type: loader
 
 #  - name: Brettercloud
 #    properties:

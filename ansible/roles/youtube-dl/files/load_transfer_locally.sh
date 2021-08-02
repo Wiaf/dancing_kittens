@@ -4,7 +4,7 @@
 #
 # load_transfer_locally.sh
 
-cd /var/kittycastle/music/
+cd /var/kittycastle/music/sort/
 rsync --bwlimit=2000 -avP cloud.bretterboi.online://home/wiaf/music/ .
 
 cd /var/kittycastle/pron/
