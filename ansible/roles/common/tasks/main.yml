@@ -30,7 +30,7 @@
 
 - name: Deploy authorized keys
   copy:
-    src: files/authorized_keys
+    src: files/authorized_keys.vault
     dest: /home/wiaf/.ssh/authorized_keys
     owner: wiaf
     group: wiaf
