@@ -72,7 +72,6 @@
       apt:
         name: "{{ packages_common }}"
         state: present
-        upgrade: dist
         install_recommends: yes
 
     - name: Install required  host specific packages
@@ -80,9 +79,8 @@
         name: "{{ packages_host }}"
         state: present
         install_recommends: yes
-        upgrade: dist
       when: packages_host is defined
-  when: "ansible_distribution == Debian or ansible_distribution == Ubuntu"
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
 - name: setting editor correctly
   block:
