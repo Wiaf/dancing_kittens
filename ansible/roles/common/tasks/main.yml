@@ -30,7 +30,7 @@
 
 - name: Deploy authorized keys
   copy:
-    src: files/authorized_keys
+    src: files/authorized_keys.vault
     dest: /home/wiaf/.ssh/authorized_keys
     owner: wiaf
     group: wiaf
@@ -66,22 +66,23 @@
     state: present
     create: yes
 
-- name: Update System
-  apt:
-    upgrade: dist
+- name: do apt stuff
+  block:
+    - name: Install required common packages
+      apt:
+        name: "{{ packages_common }}"
+        state: present
+        upgrade: dist
+        install_recommends: yes
 
-- name: Install required common packages
-  apt:
-    name: "{{ packages_common }}"
-    state: present
-    install_recommends: yes
-
-- name: Install required  host specific packages
-  apt:
-    name: "{{ packages_host }}"
-    state: present
-    install_recommends: yes
-  when: packages_host is defined
+    - name: Install required  host specific packages
+      apt:
+        name: "{{ packages_host }}"
+        state: present
+        install_recommends: yes
+        upgrade: dist
+      when: packages_host is defined
+  when: "ansible_distribution == Debian or ansible_distribution == Ubuntu"
 
 - name: setting editor correctly
   block:
@@ -134,3 +135,16 @@
     state: absent
   become: yes
   when: hostname != ansible_hostname
+
+
+#- name: Include Debian plays
+#  include: debian.yml
+#  when: ansible_distribution == "Debian"
+
+#- name: Include Ubuntu plays
+#  include: Ubuntu.yml
+#  when: ansible_distribution == "Ubuntu"
+
+#- name: Include ArchLinux plays
+#  include: common.yml
+#  when: ansible_distribution == "ArchLinux"

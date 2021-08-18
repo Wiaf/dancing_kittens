@@ -9,6 +9,3 @@ snaps:
 
 domains:
   - bretterboi.online
-
-youtube-dl-role:
-  - downloader

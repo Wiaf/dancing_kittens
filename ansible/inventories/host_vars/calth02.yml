@@ -1,8 +1,5 @@
 packages_host:
   - systemd
-  - hfsplus
-  - hfsutils
-  - hfsprogs
 
 samba_shares:
 
@@ -19,7 +16,7 @@ rclone_version: "1.55.1"
 rclone_configs: ""
 rclone_arch: "arm"
 
-type: loader
+type: internal
 
 #  - name: Brettercloud
 #    properties:
