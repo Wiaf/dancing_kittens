@@ -7,7 +7,7 @@ umask 022
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 export PATH
 
-sudo btrfs scrub start -B /var/kittycastle | sudo tee /var/log/btrfs-scrub.log
+sudo btrfs scrub start -B /var/kittycastle/ | sudo tee /var/log/btrfs-scrub.log
 
 (( m = 0 ))
 
