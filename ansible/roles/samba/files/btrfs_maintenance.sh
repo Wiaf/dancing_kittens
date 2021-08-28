@@ -24,7 +24,7 @@ do
 done
 
 btrfs balance start /var/kittycastle
-
+^
 btrfs scrub start -Bd /var/kittycastle
 
 exit 0
