@@ -25,7 +25,7 @@
     - name: Copy load.sh
       copy:
         src: load.sh
-        dest: /usr/local/bin/load.sh
+        dest: /usr/local/bin/load.sh.vault
         owner: wiaf
         group: users
         mode: 0775
@@ -46,7 +46,7 @@
   block:
     - name: Copy load_transfer_locally.sh
       copy:
-        src: load_transfer_locally.sh
+        src: load_transfer_locally.sh.vault
         dest: /usr/local/bin/load_transfer_locally.sh
         owner: wiaf
         group: users
