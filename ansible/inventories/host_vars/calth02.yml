@@ -5,12 +5,12 @@ samba_shares:
 
 - name: "kittycastle"
   samba_share_path: "/var/kittycastle"
-  uuid: "e42ee214-836e-4884-b02e-15c69f96a033"
+  uuid: "888da441-44f4-4468-b0e1-9e2c738c6703"
   owner: "wiaf"
   group: "wiaf"
   folder_perms: "1775"
-  fstype: "ext4"
-  options: "defaults"
+  fstype: "btrfs"
+  options: "defaults,noatime"
 
 rclone_version: "1.55.1"
 rclone_configs: ""

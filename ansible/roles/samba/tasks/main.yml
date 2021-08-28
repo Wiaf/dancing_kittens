@@ -1,4 +1,12 @@
 ---
+- name: Deploy userscripts
+  copy:
+    src: files/
+    dest: /usr/local/bin/
+    mode: +x
+    force: yes
+  become: yes
+  tags: common_config
 
 - name: install samba
   apt:
@@ -19,7 +27,7 @@
   with_items: "{{ samba_shares }}"
   when: samba_shares is defined
 
-- name: copying file with playbook
+- name: copying smb.conf
   become: true
   copy:
     src: smb.conf
