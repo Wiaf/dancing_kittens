@@ -1,5 +1,7 @@
 packages_host:
   - systemd
+  - btrfs-tools
+  - lvm2
 
 samba_shares:
 
