@@ -1,3 +1,2 @@
-packages_host:
-  - systemd
+packages_host: ''
 
