@@ -1,5 +1,5 @@
 ---
-- include_vars: credentials.yml
+- include_vars: credentials.yml.vault
 
 - name: Make sure we have a 'wheel' group
   group:
@@ -14,7 +14,7 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: visudo -cf %s
 
-- name: Create target directory
+- name: Create t directory
   file:
     path: "/home/wiaf/.ssh"
     state: directory
