@@ -1,0 +1,3 @@
+---
+ansible_user_id: wiaf
+ssh_key: "{{vault_ssh_key}}"

@@ -29,3 +29,4 @@ packages_common:
   - vim
 
 shell: /bin/bash
+ansible_user_id: wiaf

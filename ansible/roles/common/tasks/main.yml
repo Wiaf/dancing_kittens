@@ -1,148 +1,44 @@
 ---
-- include_vars: credentials.yml.vault
 
-- name: Make sure we have a 'wheel' group
-  group:
-    name: wheel
-    state: present
-
-- name: Allow 'wheel' group to have passwordless sudo
+# Configure sshd_config on target system
+- name: Enable Public-Key-Authentication
   lineinfile:
-    dest: /etc/sudoers
+    dest: /etc/ssh/sshd_config
+    regexp: "^PubkeyAuthentication"
+    line: "PubkeyAuthentication yes"
     state: present
-    regexp: '^%wheel'
-    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
-    validate: visudo -cf %s
+  notify:
+    - reload sshd
 
-- name: Create .ssh directory
-  file:
-    path: "/home/wiaf/.ssh"
-    state: directory
-    mode: 0755
-
-- name: "Create user accounts and add users to groups"
-  user:
-    name: "{{ item.name }}"
-    groups: " {{ item.groups }}"
-    append: yes
-    shell: /bin/bash
-  loop: "{{ users }}"
-
-- name: Deploy authorized keys
+- name: Deploy Authorized Keys
   copy:
-    src: files/authorized_keys.vault
+    src: authorized_keys.yml
     dest: /home/wiaf/.ssh/authorized_keys
     owner: wiaf
     group: wiaf
-    mode: 0644
-    force: yes
-    backup: yes
-  become: yes
+    mode: u=rw,g=r,o=r
 
-- name: Disable Password Authentication
+- name: Set AuthorizedKeyFile
   lineinfile:
-      dest: /etc/ssh/sshd_config
-      regexp: '^PasswordAuthentication'
-      line: "PasswordAuthentication no"
-      state: present
-      backup: yes
-
-- name: Disable Root Login
-  lineinfile:
-      dest: /etc/ssh/sshd_config
-      regexp: '^PermitRootLogin'
-      line: "PermitRootLogin no"
-      state: present
-      backup: yes
-
+    dest: /etc/ssh/sshd_config
+    regexp: "^AuthorizedKeysFile"
+    line: "AuthorizedKeysFile      .ssh/authorized_keys"
+    state: present
   notify:
-    - restart ssh
+    - reload sshd
 
-- name: fix apt package cache size
+- name: Disable PasswordAuthentication
   lineinfile:
-    dest: /etc/apt/apt.conf
-    regexp: '^APT::Cache-Limit'
-    line: 'APT::Cache-Limit "100000000";'
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
     state: present
-    create: yes
+  notify:
+    - reload sshd
 
-- name: do apt stuff
-  block:
-    - name: Install required common packages
-      apt:
-        name: "{{ packages_common }}"
-        state: present
-        install_recommends: yes
-
-    - name: Install required  host specific packages
-      apt:
-        name: "{{ packages_host }}"
-        state: present
-        install_recommends: yes
-      when: packages_host is defined
-  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
-
-- name: setting editor correctly
-  block:
-    - name: stat current editor
-      stat:
-        path: /etc/alternatives/editor
-      register: alternatives_editor
-
-    - name: set default editor
-      command: update-alternatives --set editor /usr/bin/vim.basic
-      when: alternatives_editor.stat.exists == True and alternatives_editor.stat.lnk_source != "/usr/bin/vim.basic"
-  ignore_errors: yes
-  tags: editor
-
-- name: update /etc/hostname
+- name: Ensuring that wheel is able to use sudo without password
   lineinfile:
-    path: /etc/hostname
-    line: "{{ hostname }}"
-    state: present
-
-- name: remove anything but new hostname from /etc/hostname
-  lineinfile:
-    dest: /etc/hostname
-    regexp: "^(?!{{ hostname }})"
-    state: absent
-  register: etc_hostname
-
-- name: Set motd
-  template:
-    src: motd.j2
-    dest: /etc/motd
-
-- name: Deploy userscripts
-  copy:
-    src: files/
-    dest: /usr/local/bin/
-    mode: +x
-    force: yes
-  become: yes
-  tags: common_config
-
-
-- name: update hostname in system
-  command: hostname -F /etc/hostname
-
-- name: hostname has changed - remove entry or old hostname from /etc/hosts
-  lineinfile:
-    dest: /etc/hosts
-    regexp: "{{ ansible_hostname }}"
-    state: absent
-  become: yes
-  when: hostname != ansible_hostname
-
-
-#- name: Include Debian plays
-#  include: debian.yml
-#  when: ansible_distribution == "Debian"
-
-#- name: Include Ubuntu plays
-#  include: Ubuntu.yml
-#  when: ansible_distribution == "Ubuntu"
-
-#- name: Include ArchLinux plays
-#  include: common.yml
-#  when: ansible_distribution == "ArchLinux"
+    path: /etc/sudoers
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'

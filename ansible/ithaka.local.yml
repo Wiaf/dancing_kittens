@@ -1,8 +1,9 @@
 ---
 
-- hosts: calth01, calth02
-  vars_files:
-    - vars/main.yml
+- hosts: calth02
+
+
   roles:
     - { role: common }
     - { role: geerlingguy.raspberry-pi }
+    - { role: geerlingguy.samba }

@@ -1,6 +1,0 @@
----
-- name: Update cache and Upgrade System
-  pacman:
-    update_cache: yes
-    upgrade: yes
-  tags: arch

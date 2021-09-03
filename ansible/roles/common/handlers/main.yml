@@ -1,11 +1,11 @@
 - name: restart ntp
-  service: 
+  service:
     name: ntp
-    enabled: yes 
+    enabled: yes
     state: restarted
 
-- name: restart ssh
+- name: reload sshd
   service:
-    name: sshd
-    enabled: yes 
+    name: reload sshd
+    enabled: yes
     state: restarted
