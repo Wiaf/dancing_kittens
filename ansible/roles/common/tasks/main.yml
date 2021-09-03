@@ -14,7 +14,7 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: visudo -cf %s
 
-- name: Create t directory
+- name: Create .ssh directory
   file:
     path: "/home/wiaf/.ssh"
     state: directory

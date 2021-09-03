@@ -11,13 +11,6 @@ samba_shares:
   group: "wiaf"
   folder_perms: "1775"
   fstype: "btrfs"
-  options: "defaults,noatime"
-
-rclone_version: "1.55.1"
-rclone_configs: ""
-rclone_arch: "arm"
+  options: "defaults,noatime,space_cache,autodefrag,compress=zstd"
 
 type: internal
-
-#  - name: Brettercloud
-#    properties:
