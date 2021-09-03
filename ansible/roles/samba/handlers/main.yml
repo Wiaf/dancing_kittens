@@ -1,0 +1,12 @@
+
+- name: restart smbd
+  service:
+    name: smbd
+    enabled: yes
+    state: restarted
+
+- name: restart nmbd
+  service:
+    name: smbd
+    enabled: yes
+    state: restarted

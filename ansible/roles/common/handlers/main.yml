@@ -6,6 +6,6 @@
 
 - name: reload sshd
   service:
-    name: reload sshd
+    name: reload ssh
     enabled: yes
     state: restarted
