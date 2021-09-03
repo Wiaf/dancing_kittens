@@ -42,10 +42,10 @@
       - restart smbd
       - restart nmbd
       ignore_errors: yes
-      when: samba_shares is defined
 
     - name: samba_users | creating samba user passwords
       shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
       become: true
       no_log: true
       with_items: "{{ samba_users }}"
+  when: samba_shares is defined
