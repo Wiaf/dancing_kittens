@@ -1,0 +1,7 @@
+#ansible-playbook test-playbook.yml --extra-vars "ansible_become_pass=sudo_pass"
+- hosts: localhost
+
+  tasks:
+    - name: Including role to test
+      include_role:
+        name: '../software_snapd'

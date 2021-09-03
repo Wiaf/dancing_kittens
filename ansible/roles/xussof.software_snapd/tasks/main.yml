@@ -1,0 +1,29 @@
+---
+#- name: Installing snapd packages using apt
+#  become: true
+#  apt:
+#    pkg: "snapd"
+#    update_cache: yes
+#    state: latest
+#  when: ansible_distribution == 'Ubuntu'
+
+#- name: Installing snapd packages using yum
+#  become: true
+#  yum:
+#    pkg: "snapd"
+#    update_cache: yes
+#    state: latest
+#  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+
+#- name: Installing snapd packages using pacman
+#  pacman:
+#    name: "snapd"
+#    state: present
+#  when: ansible_distribution == 'MacOSX'
+
+- name: Installing snapd packages
+  become: true
+  package:
+    name: "snapd"
+    state: present

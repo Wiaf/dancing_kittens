@@ -1,12 +1,12 @@
 ---
 # Enable creating dynamic templated NGINX HTML demo websites.
-nginx_config_html_demo_template_enable: false
+nginx_config_html_demo_template_enable: true
 nginx_config_html_demo_template:
   default:
     template_file: www/index.html.j2
     html_file_name: index.html
     html_file_location: /usr/share/nginx/html
-    web_server_name: Default
+    web_server_name: bretterboi.online
 
 # Enable creating dynamic templated NGINX configuration files.
 # Defaults are the values found in a fresh NGINX installation.
@@ -127,20 +127,26 @@ nginx_config_main_template:
 # Enable creating dynamic templated NGINX HTTP configuration files.
 # Defaults will not produce a valid configuration. Instead they are meant to showcase
 # the options available for templating. Each key represents a new configuration file.
-nginx_config_http_template_enable: false
+nginx_config_http_template_enable: true
 nginx_config_http_template:
   default:
     template_file: http/default.conf.j2
     conf_file_name: default.conf
     conf_file_location: /etc/nginx/conf.d/
     servers:
-      server1:
+   #   server1:
+   #     listen:
+   #       listen_localhost:
+   #         ip: localhost  # Wrap in square brackets for IPv6 addresses
+   #         port: 8081
+   #         ssl: true
+   #         opts: [http2]  # Listen opts like http2 which will be added (ssl is automatically added if you specify 'ssl:').
+      bretterboi.online:
         listen:
-          listen_localhost:
-            ip: localhost  # Wrap in square brackets for IPv6 addresses
-            port: 8081
-            ssl: true
-            opts: []  # Listen opts like http2 which will be added (ssl is automatically added if you specify 'ssl:').
+          port: 80, 443
+          ssl: true
+          opts: [] # Listen opts like http2 which will be added (ssl is automatically added if you specify 'ssl:').
+
         # app_protect:  # Optional -- Configure NGINX App Protect
         #   enable: false  # Optional
         #   policy_file: path  # Optional
@@ -207,7 +213,7 @@ nginx_config_http_template:
           stapling_verify: true
           buffer_size: 16k
           ecdh_curve: auto
-        server_name: localhost
+        server_name: bretterboi.online
         include_files: []
         http_error_pages: {}
         error_page: /usr/share/nginx/html
@@ -219,7 +225,7 @@ nginx_config_http_template:
           location: /var/log/nginx/error.log
           level: warn
         root: /usr/share/nginx/html
-        # https_redirect: $host
+        #https_redirect: $host
         autoindex: false
         auth_basic: null
         auth_basic_user_file: null

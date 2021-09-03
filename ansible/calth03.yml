@@ -1,0 +1,12 @@
+---
+
+- hosts: calth03
+  gather_facts: yes
+#  tasks:
+#    - debug: var=ansible_hostname
+  roles:
+   - role: geerlingguy.mysql
+   - role: geerlingguy.php
+   - role: nginxinc.nginx
+   - role: nginxinc.nginx_config
+  #ignore_errors: true

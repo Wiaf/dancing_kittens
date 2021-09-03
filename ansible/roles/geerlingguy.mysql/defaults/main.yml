@@ -106,7 +106,10 @@ mysql_config_include_files: []
 #  - { src: path/relative/to/playbook/anotherfile.cnf, force: yes }
 
 # Databases.
-mysql_databases: []
+mysql_databases:
+  - name: wordpress
+    collation: utf8mb4_unicode_ci
+    encoding: utf8mb4
 #   - name: example
 #     collation: utf8_general_ci
 #     encoding: utf8
