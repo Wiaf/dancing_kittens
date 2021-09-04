@@ -1,0 +1,11 @@
+---
+apache2_http_name: httpd
+apache2_http_user: apache
+apache2_http_conf_file: /etc/httpd/conf/httpd.conf
+apache2_http_manager: httpd
+apache2_http_site_dir: "/etc/{{ apache2_http_name }}/conf.d"
+
+apache2_prerequisites:
+ - "{{ apache2_http_name }}"
+ - httpd-tools
+ - mod_ssl

@@ -1,0 +1,10 @@
+---
+apache2_http_name: apache2
+apache2_http_user: www-data
+apache2_http_conf_file: /etc/apache2/apache2.conf
+apache2_http_manager: apache2ctl
+apache2_http_site_dir: "/etc/{{ apache2_http_name }}/sites-available"
+
+apache2_prerequisites:
+ - "{{ apache2_http_name }}"
+ - apache2-utils

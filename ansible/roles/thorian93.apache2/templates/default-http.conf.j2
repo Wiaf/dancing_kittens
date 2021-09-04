@@ -1,0 +1,6 @@
+<VirtualHost *:80>
+{% if apache2_redirect_http_https %}
+    RewriteEngine on
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}$1 [R=301,L]
+{% endif %}
+</VirtualHost>

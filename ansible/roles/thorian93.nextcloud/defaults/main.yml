@@ -1,0 +1,62 @@
+---
+nextcloud_stable_os:
+  - Debian 9
+  - Debian 10
+  - Ubuntu 18
+  - Ubuntu 20
+
+nextcloud_version: "21.0.1"
+
+nextcloud_external_url: "{{ inventory_hostname }}"
+nextcloud_default_phone_region: 'DE'
+
+nextcloud_admin_name:  "{{ vault_nc_admin_user }}"
+nextcloud_admin_pw:  "{{ vault_nc_admin_pass }}"
+
+nextcloud_redirect_http_to_https: 'true'
+
+nextcloud_create_self_signed_cert: 'false'
+nextcloud_self_signed_cert_subj: "/C=DE/ST=FOO/L=BAR/O=Org/CN={{ nextcloud_external_url }}"
+nextcloud_self_signed_certificate_key: "/etc/{{ apache2_http_name }}/ssl/nextcloud.key"
+nextcloud_self_signed_certificate: "/etc/{{ apache2_http_name }}/ssl/nextcloud.crt"
+
+nextcloud_custom_cert: 'false'
+nextcloud_custom_cert_file: /etc/{{ apache2_http_name }}/ssl/nextcloud.crt
+nextcloud_custom_cert_key: /etc/{{ apache2_http_name }}/ssl/nextcloud.key
+
+nextcloud_certificate_key: "{{ certbot_cert_path }}/privkey.pem"
+nextcloud_certificate: "{{ certbot_cert_path }}/cert.pem"
+nextcloud_certificate_chain: "{{ certbot_cert_path }}/fullchain.pem"
+
+nextcloud_db_system: "mysql"
+nextcloud_db_host: "127.0.0.1"
+nextcloud_db_name: "nextcloud"
+
+nextcloud_enable_opt_prerequisites: 'true'
+
+nextcloud_turn_enable: 'false'
+nextcloud_turn_ip: "{{ ansible_default_ipv4.address }}"
+nextcloud_turn_port: 3478
+nextcloud_turn_realm: "{{ nextcloud_external_url }}"
+# Set this in your inventory. By default this role will generate a new secret on every run until this variable is set.
+# nextcloud_turn_secret:
+
+nextcloud_backup: 'false'
+nextcloud_web_dir: "/var/www/nextcloud"
+nextcloud_data_dir: "/var/www/nextcloud/data"
+nextcloud_backup_path: "/tmp"
+nextcloud_scripts_dir: "{{ nextcloud_data_dir }}/scripts"
+
+nextcloud_php_options:
+  - line: "post_max_size = 4G"
+    regexp: "^post_max_size ="
+  - line: "upload_max_filesize = 4G"
+    regexp: "^upload_max_filesize ="
+  - line: "open_basedir ='{{ nextcloud_web_dir }}:{{ nextcloud_data_dir }}:/tmp:/dev/urandom'"
+    regexp: "^open_basedir ="
+  - line: "apc.enable_cli=1"
+    regexp: "^apc.enable_cli="
+  - line: "memory_limit = 512M"
+    regexp: "^memory_limit ="
+
+nextcloud_enabled_apps: []
