@@ -27,6 +27,7 @@ packages_common:
   - software-properties-common
   - rsyslog
   - vim
+  - systemd
 
 shell: /bin/bash
 ansible_user_id: wiaf
