@@ -1,0 +1,29 @@
+---
+galaxy_info:
+  role_name: php
+  author: thorian93
+  description: PHP Management
+  license: "license (MIT)"
+
+  min_ansible_version: 2.9
+
+  galaxy_tags:
+    - linux
+    - server
+    - web
+    - php
+
+  platforms:
+    - name: Debian
+      versions:
+        - Stretch
+        - Buster
+    - name: Ubuntu
+      versions:
+        - Xenial
+        - Bionic
+        - 20
+
+dependencies:
+  - name: thorian93.webserver
+    version: master

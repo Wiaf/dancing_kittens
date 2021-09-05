@@ -11,6 +11,7 @@ packages_common:
   - tcpdump
   - netcat
   - git
+  - sudo
   - unzip
   - bash-completion
   - apt-transport-https
@@ -27,6 +28,11 @@ packages_common:
   - software-properties-common
   - rsyslog
   - vim
+  - systemd
 
 shell: /bin/bash
 ansible_user_id: wiaf
+
+users:
+  - name: wiaf
+    groups: users

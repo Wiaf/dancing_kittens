@@ -1,0 +1,69 @@
+---
+- name: "Preflight - Fail if target host is not stable for this Role."
+  fail:
+    msg: "This role is not stable for the target operating system, {{ ansible_distribution }} {{ ansible_distribution_major_version }}."
+  when: (ansible_distribution is not defined) or
+        (ansible_distribution_version is not defined) or
+        (ansible_distribution+" "+ansible_distribution_major_version not in apache2_stable_os)
+
+- name: "Include OS Family specific Variables."
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: "Install Prerequisites."
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ apache2_prerequisites }}"
+
+- name: "Enable Apache2 to start on Boot."
+  service:
+    name: "{{ apache2_http_name }}"
+    state: started
+    enabled: 'yes'
+
+- name: "Create Certificate Directory."
+  file:
+    path: "/etc/{{ apache2_http_name }}/ssl"
+    state: directory
+    mode: '0700'
+    owner: "{{ apache2_http_user }}"
+    group: "{{ apache2_http_user }}"
+
+- name: "Copy Apache2 Configuration File."
+  template:
+    src: "{{ apache2_http_name }}.conf.j2"
+    dest: "{{ apache2_http_conf_file }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: 'yes'
+    validate: "{{ apache2_http_manager }} -t -f %s"
+  notify: "restart webserver"
+  when: not ansible_distribution == "CentOS" and not ansible_distribution_major_version == "6"
+
+- name: "Enable Apache2 Modules on Debian Derivates."
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ apache2_modules }}"
+  notify: "restart webserver"
+  when: ansible_os_family == "Debian"
+
+- name: "Disable Apache2 Default Site on Debian Derivates."
+  command: a2dissite "{{ item }}"
+  args:
+    removes: "/etc/apache2/sites-enabled/{{ item }}"
+  with_items:
+    - "000-default.conf"
+    - "default-ssl.conf"
+  when: (ansible_os_family == "Debian") and (apache2_disable_default_site | bool)
+
+- name: "Disable possibly insecure Modules on Debian Derivates."
+  apache2_module:
+    name: status
+    state: absent
+  notify: "restart webserver"
+  when: ansible_os_family == "Debian"
+
+- name: "Force Handler Execution to ensure Apache2 is restarted."
+  meta: flush_handlers

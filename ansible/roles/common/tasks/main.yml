@@ -10,13 +10,29 @@
   notify:
     - reload sshd
 
+- name: Create .ssh directory
+  file:
+    path: "/home/wiaf/.ssh"
+    state: directory
+    mode: 0755
+
+- name: "Create user accounts and add users to groups"
+  user:
+    name: "{{ item.name }}"
+    groups: " {{ item.groups }}"
+    append: yes
+    shell: /bin/bash
+  loop: "{{ users }}"
+
 - name: Deploy Authorized Keys
   copy:
     src: authorized_keys.yml
     dest: /home/wiaf/.ssh/authorized_keys
     owner: wiaf
     group: wiaf
-    mode: u=rw,g=r,o=r
+    mode: 0644
+    force: yes
+    backup: yes
   register: auth_deployed
 
 - name: Set AuthorizedKeyFile
@@ -37,6 +53,23 @@
   notify:
     - reload sshd
 
+- name: Update System
+  apt:
+    upgrade: dist
+
+- name: Install required common packages
+  apt:
+    name: "{{ packages_common }}"
+    state: present
+    install_recommends: yes
+
+- name: Install required  host specific packages
+  apt:
+    name: "{{ packages_host }}"
+    state: present
+    install_recommends: yes
+  when: packages_host is defined
+  
 - name: Ensuring that wheel is able to use sudo without password
   lineinfile:
     path: /etc/sudoers
@@ -46,5 +79,5 @@
   become: yes
 
 - include_tasks: security.yml
-  when: auth_deployed.changed
+#  when: auth_deployed.changed
   ignore_errors: yes

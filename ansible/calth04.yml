@@ -1,0 +1,5 @@
+---
+- hosts: calth04
+  roles:
+    - role: thorian93.nextcloud
+      become: yes

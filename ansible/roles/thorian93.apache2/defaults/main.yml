@@ -1,0 +1,17 @@
+---
+apache2_stable_os:
+  - Debian 9
+  - Debian 10
+  - CentOS 7
+  - CentOS 8
+  - Fedora 30
+  - Fedora 31
+  - Fedora 32
+  - Fedora 33
+  # - openSUSE Leap 15
+  # - openSUSE Leap 42
+  - Ubuntu 16
+  - Ubuntu 18
+  - Ubuntu 20
+
+apache2_disable_default_site: 'true'
