@@ -46,5 +46,5 @@
   become: yes
 
 - include_tasks: security.yml
-  when: auth_deployed.changed
+#  when: auth_deployed.changed
   ignore_errors: yes

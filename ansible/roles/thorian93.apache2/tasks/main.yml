@@ -7,7 +7,7 @@
         (ansible_distribution+" "+ansible_distribution_major_version not in apache2_stable_os)
 
 - name: "Include OS Family specific Variables."
-  include_vars: "{{ ansible_os_family }}.yml"
+  include_vars: "{ { ansible_os_family }}.yml"
 
 - name: "Install Prerequisites."
   package:
