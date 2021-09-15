@@ -1,7 +1,7 @@
 ---
-- name: "Update Hostnames"
+- name: Set hostname
   hostname:
-    name: "{{ ansible_hostname }}"
+    name: "{{ inventory_hostname }}"
 
 - name: 'Add hostname to /etc/hosts'
   lineinfile:
