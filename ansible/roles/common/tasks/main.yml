@@ -1,4 +1,14 @@
 ---
+- name: "Update Hostnames"
+  hostname:
+    name: "{{ ansible_hostname }}"
+
+- name: 'Add hostname to /etc/hosts'
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1[ \t]+localhost'
+    line: '127.0.0.1 localhost {{ ansible_hostname }}'
+    state: present
 
 # Configure sshd_config on target system
 - name: Enable Public-Key-Authentication
@@ -69,7 +79,7 @@
     state: present
     install_recommends: yes
   when: packages_host is defined
-  
+
 - name: Ensuring that wheel is able to use sudo without password
   lineinfile:
     path: /etc/sudoers
@@ -78,6 +88,6 @@
     validate: 'visudo -cf %s'
   become: yes
 
-- include_tasks: security.yml
-#  when: auth_deployed.changed
+- include_role: 
+    name: geerlingguy.security
   ignore_errors: yes
