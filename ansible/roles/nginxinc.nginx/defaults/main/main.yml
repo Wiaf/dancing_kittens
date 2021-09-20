@@ -13,7 +13,7 @@ nginx_install: true
 nginx_start: true
 
 # Print NGINX configuration file to terminal after executing playbook.
-nginx_debug_output: false
+nginx_debug_output: true
 
 # Specify which type of NGINX you want to install.
 # Options are 'opensource' or 'plus'.
