@@ -1,0 +1,11 @@
+
+---
+
+- name: copy nginx-wp-common.conf
+  template:
+    src: ../templates/nginx-wp-common.conf
+    dest: /etc/nginx/
+    owner: "{{nginx_user}}"
+    group: "{{nginx_group}}"
+    mode: 0644
+  become: yes

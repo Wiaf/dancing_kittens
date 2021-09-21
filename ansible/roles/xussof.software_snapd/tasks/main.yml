@@ -1,7 +1,0 @@
----
-#
-- name: Installing snapd packages
-  become: true
-  package:
-    name: "snapd"
-    state: present

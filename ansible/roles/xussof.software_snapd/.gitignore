@@ -1,5 +1,0 @@
-*.retry
-roles/*
-#byxussof Why ignore this?
-#meta/main.yml
-#requirements.yml

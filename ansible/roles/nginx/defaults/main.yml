@@ -1,0 +1,6 @@
+---
+nginx_user: www-data
+nginx_group: www-data
+nginx_dir: /etc/nginx/
+server_hostname: 
+  []

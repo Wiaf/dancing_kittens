@@ -1,6 +1,0 @@
----
-apache2_modules:
-  - ssl
-  - rewrite
-  - headers
-  - socache_shmcb
