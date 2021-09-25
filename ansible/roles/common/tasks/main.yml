@@ -1,0 +1,94 @@
+---
+- name: "Update Hostnames"
+  hostname:
+    name: "{{ ansible_hostname }}"
+
+- name: 'Add hostname to /etc/hosts'
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1[ \t]+localhost'
+    line: '127.0.0.1 localhost {{ ansible_hostname }}'
+    state: present
+
+# Configure sshd_config on target system
+- name: Enable Public-Key-Authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PubkeyAuthentication"
+    line: "PubkeyAuthentication yes"
+    state: present
+  notify:
+    - reload sshd
+
+- name: Create .ssh directory
+  file:
+    path: "/home/wiaf/.ssh"
+    state: directory
+    mode: 0755
+
+- name: Create wheel group
+  group:
+    name: wheel
+    state: present
+  
+- name: Create user accounts and add users to groups
+  user:
+    name: "{{ item.name }}"
+    groups: " {{ item.groups }}"
+    append: yes
+    shell: /bin/bash
+  loop: "{{ users }}"
+
+- name: Deploy Authorized Keys
+  copy:
+    src: authorized_keys.yml
+    dest: /home/wiaf/.ssh/authorized_keys
+    owner: wiaf
+    group: wiaf
+    mode: 0644
+    force: yes
+    backup: yes
+  register: auth_deployed
+
+- name: Set AuthorizedKeyFile
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^AuthorizedKeysFile"
+    line: "AuthorizedKeysFile      .ssh/authorized_keys"
+    state: present
+  notify:
+    - reload sshd
+
+- name: Disable PasswordAuthentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+  notify:
+    - reload sshd
+
+- name: Update System
+  apt:
+    upgrade: dist
+
+- name: Install required common packages
+  apt:
+    name: "{{ packages_common }}"
+    state: present
+    install_recommends: yes
+
+- name: Install required  host specific packages
+  apt:
+    name: "{{ packages_host }}"
+    state: present
+    install_recommends: yes
+  when: packages_host is defined
+
+- name: Ensuring that wheel is able to use sudo without password
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  become: yes

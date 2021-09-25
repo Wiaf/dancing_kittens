@@ -1,8 +1,0 @@
----
-
-- hosts: calth03
-  gather_facts: yes
-#  tasks:
-#    - debug: var=ansible_hostname
-  roles:
-     - role: xussof.software_snapd

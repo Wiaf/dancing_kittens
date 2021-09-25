@@ -1,26 +1,33 @@
 ---
-# tasks file for php
-
-- name: Install php extensions
-  apt:
-    name: "{{ item }}"
+- name: install prerequirements 
+  apt: 
+    name: "{{ php_prerequirements }}"
     state: present
-  become: yes
+  when: php_prerequirements
+
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: hkps://keyserver.ubuntu.com
+    id: "{{ item }}"
   with_items:
-    - php7.0
-    - php7.0-mysql
-    - php7.0-gd
-    - php-ssh2
-    - php7.0-mcrypt
+    - 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C
 
-- name: Setup php-fpm
-  replace: dest=/etc/php/7.0/fpm/php.ini regexp="(;cgi.fix_pathinfo=1)" replace="cgi.fix_pathinfo=0"
-  notify:
-    - restart nginx
-  become: yes
+- name: add additional repos
+  apt_repository:
+    repo: 'deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main'
+    validate_certs: true
+    update_cache: true
+    state: present
 
-- name: Add php settings
-  template: src=../../nginx/templates/nginx-wp-common.conf dest=/etc/nginx/nginx-wp-common.conf owner=www-data group=www-data mode=0644
-  notify:
-    - restart nginx
-  become: yes
+- name: apt dist-upgrade
+  apt:
+    upgrade: dist
+    autoremove: true
+- name: install additional packages
+  apt:
+    name:
+      - php{{ php_version }}-common
+      - php{{ php_version }}-cli
+      - php{{ php_version }}-fpm
+    state: present
+  tags: php_mods

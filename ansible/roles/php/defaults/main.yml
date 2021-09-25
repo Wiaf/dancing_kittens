@@ -1,0 +1,7 @@
+---
+php_prerequirements: 
+  - apt-transport-https 
+  - software-properties-common 
+  - lsb-release 
+  - ca-certificates
+php_version: 7.3
