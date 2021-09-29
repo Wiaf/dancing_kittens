@@ -1,16 +1,7 @@
 ---
-<<<<<<< HEAD
-php_version: "7.3"
-
-#libssl1.1 is needed here to install before ondrej kill lighttpd with his version
 php_prerequirements:
+  - apt-transport-https
   - software-properties-common
-  - libssl1.1
-=======
-php_prerequirements: 
-  - apt-transport-https 
-  - software-properties-common 
-  - lsb-release 
+  - lsb-release
   - ca-certificates
 php_version: 7.3
->>>>>>> 86a21496cfa0312b7163c658faf714e8ff69f636
