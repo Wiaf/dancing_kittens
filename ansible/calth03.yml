@@ -5,15 +5,6 @@
   tasks:
     - debug: var=ansible_hostname
   roles:
-<<<<<<< HEAD
-   - common
-   - mysql
-   - nginx
-   
-
-  #ignore_errors: true
-=======
    - role: php
    - role: nginx
   #ignore_errors: true
->>>>>>> 00fa17fff27cc70227937e65a5d388d889853ed5
