@@ -1,0 +1,7 @@
+---
+php_version: "7.3"
+
+#libssl1.1 is needed here to install before ondrej kill lighttpd with his version
+php_prerequirements:
+  - software-properties-common
+  - libssl1.1

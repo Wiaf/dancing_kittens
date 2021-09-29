@@ -5,6 +5,6 @@
 #  tasks:
 #    - debug: var=ansible_hostname
   roles:
+   - role: php
    - role: nginx
-
-  #ignore_errors: trueOOPP
+  #ignore_errors: true
