@@ -4,6 +4,7 @@
   gather_facts: yes
 #  tasks:
 #    - debug: var=ansible_hostname
-roles:
-  - role: common
+  roles:
+  - common
+  - security
   #ignore_errors: true

@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 - name: install prerequirements
   apt:
+=======
+---
+- name: install prerequirements 
+  apt: 
+>>>>>>> 86a21496cfa0312b7163c658faf714e8ff69f636
     name: "{{ php_prerequirements }}"
     state: present
   when: php_prerequirements
@@ -22,13 +28,17 @@
   apt:
     upgrade: dist
     autoremove: true
+<<<<<<< HEAD
 
+=======
+>>>>>>> 86a21496cfa0312b7163c658faf714e8ff69f636
 - name: install additional packages
   apt:
     name:
       - php{{ php_version }}-common
       - php{{ php_version }}-cli
       - php{{ php_version }}-fpm
+<<<<<<< HEAD
       - php{{ php_version }}-gd
       - php{{ php_version }}-mysql
       - php{{ php_version }}-curl
@@ -90,3 +100,7 @@
     group: root
     mode: 0644
   notify: restart php-fpm
+=======
+    state: present
+  tags: php_mods
+>>>>>>> 86a21496cfa0312b7163c658faf714e8ff69f636
