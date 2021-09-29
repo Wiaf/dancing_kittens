@@ -2,12 +2,12 @@
 
 - hosts: calth03
   gather_facts: yes
-#  tasks:
-#    - debug: var=ansible_hostname
+  tasks:
+    - debug: var=ansible_hostname
   roles:
-#   - mysql
-   - php
+   - common
+   - mysql
    - nginx
    
 
-  #ignore_errors: trueOOPP
+  #ignore_errors: true
