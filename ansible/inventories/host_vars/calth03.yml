@@ -1,8 +1,10 @@
 packages_host:
-  []
+  - ufw
+
 snaps:
   []
-
+http_host: "bretterboi.online"
+http_conf: "bretterboi.online.conf"
 domains:
   - bretterboi.online
   - 65z6frr86.org

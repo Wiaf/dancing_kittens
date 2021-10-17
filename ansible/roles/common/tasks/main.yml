@@ -1,8 +1,7 @@
 ---
 - name: "Update Hostnames"
   hostname:
-    name: "{{ hostname }}"
-  become: yes
+    name: "{{ ansible_hostname }}"
 
 - name: 'Add hostname to /etc/hosts'
   lineinfile:
@@ -10,8 +9,6 @@
     regexp: '^127\.0\.0\.1[ \t]+localhost'
     line: '127.0.0.1 localhost {{ ansible_hostname }}'
     state: present
-  when:
-    - ansible_os_family == 'Debian'
 
 # Configure sshd_config on target system
 - name: Enable Public-Key-Authentication
@@ -23,18 +20,19 @@
   notify:
     - reload sshd
 
+- name: Ensure group "wheel" exists
+  group:
+    name: wheel
+    state: present
+  become: yes
+
 - name: Create .ssh directory
   file:
     path: "/home/wiaf/.ssh"
     state: directory
     mode: 0755
 
-- name: Create wheel group
-  group:
-    name: wheel
-    state: present
-  
-- name: Create user accounts and add users to groups
+- name: "Create user accounts and add users to groups"
   user:
     name: "{{ item.name }}"
     groups: " {{ item.groups }}"
@@ -80,6 +78,13 @@
     name: "{{ packages_common }}"
     state: present
     install_recommends: yes
+- name: create mmotd backup folder
+
+- name: backup old motd
+
+
+- name: enable neofetch motd
+  command: sudo bash -c $'echo "neofetch" >> /etc/profile.d/mymotd.sh && chmod +x /etc/profile.d/mymotd.sh'
 
 - name: Install required  host specific packages
   apt:
@@ -88,6 +93,7 @@
     install_recommends: yes
   when: packages_host is defined
 
+
 - name: Ensuring that wheel is able to use sudo without password
   lineinfile:
     path: /etc/sudoers
@@ -95,3 +101,8 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
   become: yes
+
+- include_tasks: autoupdate-Debian.yml
+  when:
+    - ansible_os_family == 'Debian'
+    - security_autoupdate_enabled | bool
