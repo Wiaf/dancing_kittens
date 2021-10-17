@@ -20,6 +20,12 @@
   notify:
     - reload sshd
 
+- name: Ensure group "wheel" exists
+  group:
+    name: wheel
+    state: present
+  become: yes
+
 - name: Create .ssh directory
   file:
     path: "/home/wiaf/.ssh"
@@ -72,6 +78,13 @@
     name: "{{ packages_common }}"
     state: present
     install_recommends: yes
+- name: create mmotd backup folder
+
+- name: backup old motd
+
+
+- name: enable neofetch motd
+  command: sudo bash -c $'echo "neofetch" >> /etc/profile.d/mymotd.sh && chmod +x /etc/profile.d/mymotd.sh'
 
 - name: Install required  host specific packages
   apt:
@@ -79,6 +92,7 @@
     state: present
     install_recommends: yes
   when: packages_host is defined
+
 
 - name: Ensuring that wheel is able to use sudo without password
   lineinfile:
@@ -88,6 +102,7 @@
     validate: 'visudo -cf %s'
   become: yes
 
-- include_role: 
-    name: geerlingguy.security
-  ignore_errors: yes
+- include_tasks: autoupdate-Debian.yml
+  when:
+    - ansible_os_family == 'Debian'
+    - security_autoupdate_enabled | bool

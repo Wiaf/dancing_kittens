@@ -5,8 +5,7 @@
 #  tasks:
 #    - debug: var=ansible_hostname
   roles:
-   - role: geerlingguy.mysql
-   - role: geerlingguy.php
-   - role: nginxinc.nginx
-   - role: nginxinc.nginx_config
+  # - role: common
+   - role: lemp_u1804
+
   #ignore_errors: true
