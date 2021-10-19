@@ -2,57 +2,24 @@
 
 - name: Install Nginx
   apt:
-    pkg: nginx
+    name: nginx
     state: latest
     update_cache: true
 
 - name: Add Nginx Config
   copy: 
     src: nginx.conf 
-    dest: /etc/nginx/nginx.conf 
-    owner: root 
-    group: root
+    dest: /etc/nginx/sites-available/default
 
-- name: Disable Default Site
+
+- name: enable default configuration
   file: 
+    src: /etc/nginx/sites-available/default
     dest: /etc/nginx/sites-enabled/default 
-    state: absent
-
-- name: Make sure the sites-available, sites-enabled and conf.d directories exist
-  file:
-    path: "{{nginx_dir}}/{{item}}"
-    owner: "{{nginx_user}}"
-    group: "{{nginx_group}}"
-    mode: 0755
-    recurse: yes
-    state: directory
-  with_items: ["sites-available", "sites-enabled", "conf.d"]
-
-- name: copy nginx-wp-common.conf
-  template:
-    src: ../templates/nginx-wp-common.conf
-    dest: /etc/nginx/
-    owner: "{{nginx_user}}"
-    group: "{{nginx_group}}"
-    mode: 0644
-  become: yes
-
-- name: Update nginx confs for WordPress + PHP
-  template: 
-    src: ../templates/default-site.conf 
-    dest: /etc/nginx/sites-available/{{server_hostname}}
-    owner: "{{nginx_user}}"
-    group: "{{nginx_group}}"
-    mode: 0644
-  become: yes
-
-- name: Enable site
-  file: 
-    src: /etc/nginx/sites-available/{{server_hostname}}
-    dest: /etc/nginx/sites-enabled/{{server_hostname}}
-    owner: "{{nginx_user}}" 
-    group: "{{nginx_group}}"
     state: link
-  notify:
-    - restart nginx
-  become: yes
+
+- name: copy index.html
+  template: 
+    src: templates/index.html.j2 
+    dest: /usr/share/nginx/html/index.html
+    mode: 0644

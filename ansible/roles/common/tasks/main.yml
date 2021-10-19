@@ -1,15 +1,15 @@
 ---
 - name: "Update Hostnames"
   hostname:
-    name: "{{ ansible_hostname }}"
+    name: "{{ inventory_hostname }}"
 
 - name: 'Add hostname to /etc/hosts'
   lineinfile:
     path: /etc/hosts
     regexp: '^127\.0\.0\.1[ \t]+localhost'
-    line: '127.0.0.1 localhost {{ ansible_hostname }}'
+    line: '127.0.0.1 localhost {{ inventory_hostname }}'
     state: present
-
+  
 # Configure sshd_config on target system
 - name: Enable Public-Key-Authentication
   lineinfile:
@@ -24,7 +24,6 @@
   group:
     name: wheel
     state: present
-  become: yes
 
 - name: Create .ssh directory
   file:
@@ -78,13 +77,6 @@
     name: "{{ packages_common }}"
     state: present
     install_recommends: yes
-- name: create mmotd backup folder
-
-- name: backup old motd
-
-
-- name: enable neofetch motd
-  command: sudo bash -c $'echo "neofetch" >> /etc/profile.d/mymotd.sh && chmod +x /etc/profile.d/mymotd.sh'
 
 - name: Install required  host specific packages
   apt:
@@ -93,7 +85,6 @@
     install_recommends: yes
   when: packages_host is defined
 
-
 - name: Ensuring that wheel is able to use sudo without password
   lineinfile:
     path: /etc/sudoers
@@ -101,8 +92,3 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
   become: yes
-
-- include_tasks: autoupdate-Debian.yml
-  when:
-    - ansible_os_family == 'Debian'
-    - security_autoupdate_enabled | bool

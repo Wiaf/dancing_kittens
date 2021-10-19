@@ -3,9 +3,6 @@
 - include_tasks: fail2ban.yml
   when: security_fail2ban_enabled | bool
 
-# SSH
-- include_tasks: ssh.yml
-
 - include_tasks: autoupdate-Debian.yml
   when:
     - ansible_os_family == 'Debian'

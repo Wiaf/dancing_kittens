@@ -5,13 +5,8 @@
   tasks:
     - debug: var=ansible_hostname
   roles:
-<<<<<<< HEAD
-   - role: php
-   - role: nginx
-  #ignore_errors: true
-=======
-  # - role: common
+   - role: common
+   - role: security
    - role: lemp_u1804
 
   #ignore_errors: true
->>>>>>> master

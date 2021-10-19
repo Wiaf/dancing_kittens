@@ -1,9 +1,0 @@
-lemp_packages:
-  - nginx
-  - mysql-server
-  - python3-pymysql
-  - php-fpm
-  - php-mysql
-
-http_port: 80
-vault_mysql_root_password: hund
