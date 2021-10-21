@@ -1,0 +1,29 @@
+---
+- name: APT | Update cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  changed_when: false
+
+- name: APT | Install sury dependencies
+  ansible.builtin.apt:
+    name: "{{ pkgs }}"
+  vars:
+    pkgs:
+      - apt-transport-https
+      - ca-certificates
+      - gpg
+      - lsb-release
+
+- name: APT_KEY | Install GPG key
+  ansible.builtin.apt_key:
+    url: '{{ sury_apt_url }}/apt.gpg'
+
+- name: APT_REPOSITORY | Add APT repository
+  ansible.builtin.apt_repository:
+    repo: 'deb {{ sury_apt_url }} {{ ansible_distribution_release }} main'
+
+- name: Install PHP packages version:{{php_version}}
+  apt: 
+    name: "{{ packages_php }}"
+    state: present

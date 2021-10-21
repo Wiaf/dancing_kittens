@@ -1,13 +1,6 @@
 ---
-- name: Set the default PHP version for Debian-based OSes.
-  set_fact:
-    php_default_version_debian: "{{ __php_default_version_debian }}"
-  when: php_default_version_debian is not defined and ansible_os_family == 'Debian'
-
-- name: Include OS-specific variables.
-  include_vars: "{{ ansible_os_family }}.yml"
-
-- name: Define php_packages.
-  set_fact:
-    php_packages: "{{ __php_packages | list }}"
-  when: php_packages is not defined
+# Include OS specific tasks
+- include: Debian.yml
+  when: ansible_distribution == "Debian"
+- include: Ubuntu.yml
+  when: ansible_distribution == "Ubuntu"

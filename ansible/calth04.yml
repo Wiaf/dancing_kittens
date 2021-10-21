@@ -4,3 +4,4 @@
     - role: common
     - role: security    
     - role: nginx
+    - role: php
