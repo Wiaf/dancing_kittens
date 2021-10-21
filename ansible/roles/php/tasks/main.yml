@@ -4,3 +4,9 @@
   when: ansible_distribution == "Debian"
 - include: Ubuntu.yml
   when: ansible_distribution == "Ubuntu"
+ 
+- name: set php.ini 
+  lineinfile:
+    dest: /etc/php/{{php_version}}/fpm/php.ini
+    regexp: ";cgi.fix_pathinfo"
+    line: "cgi.fix_pathinfo=0"

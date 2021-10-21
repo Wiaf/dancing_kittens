@@ -2,11 +2,10 @@
 
 - hosts: calth03
   gather_facts: yes
-  tasks:
-    - debug: var=ansible_hostname
   roles:
    - role: common
    - role: security
-   - role: lemp_u1804
+   - role: nginx
+   - role: php
 
   #ignore_errors: true
