@@ -3,5 +3,18 @@
   service: 
     name: nginx 
     state: restarted
-  become: yes
 
+- name: reload nginx
+  service: 
+    name: nginx 
+    state: restarted
+
+- name: (Handler - NGINX Config) Check NGINX
+  command: nginx -t
+  args:
+    chdir: /etc/nginx/
+  register: config_check
+  ignore_errors: true
+  check_mode: false
+  changed_when: false
+  listen: (Handler - NGINX Config) Run NGINX

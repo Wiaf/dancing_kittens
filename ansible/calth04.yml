@@ -3,5 +3,5 @@
   roles:
     - role: common
     - role: security    
-    - role: nginx
     - role: php
+    - role: nginx

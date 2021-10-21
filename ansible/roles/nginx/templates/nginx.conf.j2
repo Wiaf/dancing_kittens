@@ -10,4 +10,12 @@ server {
         location / {
                 try_files $uri $uri/ =404;
         }
+        
+        location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        # With php7.4-cgi alone:
+        #fastcgi_pass 127.0.0.1:9000;
+        # With php7.4-fpm:
+        fastcgi_pass unix:/run/php/php{{php_version}}-fpm.sock;
+        }
 }
