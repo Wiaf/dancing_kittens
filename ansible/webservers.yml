@@ -1,0 +1,11 @@
+---
+
+- hosts: calth03, calth04
+  gather_facts: yes
+  roles:
+   - role: common
+   - role: security
+   - role: php
+   - role: nginx
+
+  #ignore_errors: true
