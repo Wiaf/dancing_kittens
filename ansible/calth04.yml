@@ -1,7 +1,0 @@
----
-- hosts: calth04
-  roles:
-    - role: common
-    - role: security    
-    - role: php
-    - role: nginx

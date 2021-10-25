@@ -1,12 +1,12 @@
 ---
 - name: restart nginx
-  service: 
-    name: nginx 
+  service:
+    name: nginx
     state: restarted
 
 - name: reload nginx
-  service: 
-    name: nginx 
+  service:
+    name: nginx
     state: restarted
 
 - name: (Handler - NGINX Config) Check NGINX

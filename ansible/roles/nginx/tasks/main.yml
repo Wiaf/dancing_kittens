@@ -7,23 +7,25 @@
     update_cache: true
 
 - name: Add Nginx Config
-  template: 
+  template:
     src: nginx.conf.j2
     dest: /etc/nginx/sites-available/default
   notify:
     - (Handler - NGINX Config) Run NGINX
+    - reload nginx
 
 - name: enable default configuration
-  file: 
+  file:
     src: /etc/nginx/sites-available/default
-    dest: /etc/nginx/sites-enabled/default 
+    dest: /etc/nginx/sites-enabled/default
     state: link
     force: yes
   notify:
     - (Handler - NGINX Config) Run NGINX
+    - reload nginx
 
 - name: copy index.html
-  template: 
-    src: templates/index.html.j2 
+  template:
+    src: templates/index.html.j2
     dest: /usr/share/nginx/html/index.html
     mode: 0644
