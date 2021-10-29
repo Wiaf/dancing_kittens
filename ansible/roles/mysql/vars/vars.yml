@@ -1,3 +1,0 @@
----
-mariadb_login_user: "{{ vault_mariadb_login_user }}"
-mariadb_login_password: "{{ vault_mariadb_login_password }}"
