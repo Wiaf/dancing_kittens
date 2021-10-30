@@ -3,6 +3,7 @@
   file:
     path: /usr/local/nagios/etc/objects
     state: directory
+
 - name:
   template: 
     src: calth02.cfg.j2
