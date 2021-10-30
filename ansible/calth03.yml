@@ -4,4 +4,8 @@
   gather_facts: yes
   roles:
    - role: mysql
+   - role: nginx
+   - role: php
+   - role: nodejs
+   - role: calth03
   #ignore_errors: true
