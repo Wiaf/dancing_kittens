@@ -1,5 +1,6 @@
 packages_host:
   - ufw
+  - snapd
 
 domains:
   - bretterboi.online

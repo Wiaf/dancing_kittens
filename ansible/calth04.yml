@@ -1,11 +1,11 @@
 ---
 
-- hosts: calth03
+- hosts: calth04
   gather_facts: yes
   roles:
 #   - role: mysql
 #   - role: nginx
 #   - role: php
 #   - role: nodejs
-   - role: calth03
+   - role: calth04
   ignore_errors: true

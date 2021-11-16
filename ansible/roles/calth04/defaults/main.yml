@@ -4,3 +4,6 @@ prerequirement_ghost:
   - unzip
   - git
   - acl
+
+snaps:
+  []
