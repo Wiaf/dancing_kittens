@@ -3,9 +3,8 @@
 - hosts: calth03
   gather_facts: yes
   roles:
-#   - role: mysql
-#   - role: nginx
-#   - role: php
-#   - role: nodejs
-   - role: calth03
+   - role: mysql
+   - role: nginx
+   - role: php
+   - role: nodejs
   ignore_errors: true
