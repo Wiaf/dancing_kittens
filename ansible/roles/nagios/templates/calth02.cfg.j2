@@ -1,0 +1,13 @@
+define service {
+    use                     local-service
+    host_name               Calth02
+    service_description     SSH
+    check_command           check_ssh
+}
+
+define service {
+    use                     local-service
+    host_name               Calth02
+    service_description     HTTP
+    check_command           check_http
+}

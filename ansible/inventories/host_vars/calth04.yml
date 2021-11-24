@@ -1,5 +1,9 @@
 packages_host:
   - ufw
+  - snapd
 
 domain:
   - cloud.bretterboi.online
+
+snaps:
+    - nextcloud

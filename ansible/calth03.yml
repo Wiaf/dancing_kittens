@@ -4,4 +4,7 @@
   gather_facts: yes
   roles:
    - role: mysql
-  #ignore_errors: true
+   - role: nginx
+   - role: php
+   - role: nodejs
+  ignore_errors: true

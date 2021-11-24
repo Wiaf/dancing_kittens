@@ -4,9 +4,6 @@
   include_vars: debian.yml
   when: (ansible_distribution == 'Debian')
 
-- name: 'Include variables for ubuntu'
-  include_vars: ubuntu.yml
-  when: (ansible_distribution == 'Ubuntu')
 
 - name: 'Check if mariadb is already installed'
   shell: mysql -V | grep -o MariaDB

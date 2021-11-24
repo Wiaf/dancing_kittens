@@ -1,0 +1,11 @@
+---
+- name: Creates directory
+  file:
+    path: /usr/local/nagios/etc/objects
+    state: directory
+
+- name:
+  template: 
+    src: calth02.cfg.j2
+    dest: /usr/local/nagios/etc/objects
+  notify: restart nagios

@@ -1,0 +1,10 @@
+---
+- name: Install required snaps
+  snap:
+    name: "{{ snaps }}"
+
+#- name: Install prerequirements for ghost
+#  apt:
+#    name: "{{ prerequirement_ghost }}"
+#    state: present
+#    install_recommends: yes

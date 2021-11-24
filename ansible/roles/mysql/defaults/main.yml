@@ -10,12 +10,17 @@ mariadb_apt_repositories:
 
 mariadb_pin_repository: true
 mariadb_overwrite_global_mycnf: true
+mariadb_apt_dependencies:
+ []
 
-mysql_packages:
+mariadb_pip_dependencies:
+  []
+
+mariadb_apt_packages:
  - mariadb-server
  - mariadb-client
 
-mysql_python_package_debian:
+mariadb_python_package_debian:
   - python-mysqldb
   - python-openssl
   - python3-pip

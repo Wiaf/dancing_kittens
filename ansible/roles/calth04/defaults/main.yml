@@ -1,0 +1,9 @@
+prerequirement_ghost:
+  - gnupg2
+  - curl
+  - unzip
+  - git
+  - acl
+
+snaps:
+  []
