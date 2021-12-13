@@ -1,7 +1,7 @@
 ---
 
-- hosts: calth03
+- hosts: calth02
   gather_facts: yes
   roles:
-   - role: nagios
+   - role: common
   #ignore_errors: true
