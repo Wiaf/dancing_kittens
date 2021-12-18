@@ -1,0 +1,56 @@
+samba_prerequirements:
+- samba
+- samba-common
+samba_workgroup: WORKGROUP
+samba_security: user
+samba_server_role: standalone server
+samba_share_path: /media/
+samba_groups:
+  []
+samba_shares:
+  []
+  # - name: allaccess
+  #   browsable: "yes"
+  #   folder_perms: "0755"
+  #   group: nogroup
+  #   guest_ok: "yes"
+  #   owner: nobody
+  #   read_only: "no"
+  #   writable: "yes"
+  # - name: public
+  #   browsable: "yes"
+  #   folder_perms: "0777"
+  #   group: nogroup
+  #   guest_ok: "yes"
+  #   owner: nobody
+  #   read_only: "no"
+  #   writable: "yes"
+  # - name: secured
+  #   browsable: "yes"
+  #   folder_perms: "0770"
+  #   group: securedgroup
+  #   guest_ok: "no"
+  #   valid_users: '@securedgroup'
+  #   writable: "yes"
+  # - name: test
+  #   browsable: "yes"
+  #   folder_perms: "0770"
+  #   group: testgroup
+  #   guest_ok: "no"
+  #   valid_users: '@testgroup'
+  #   writable: "yes"
+samba_users:
+- name: wiaf
+  groups: 
+    []
+  smbpasswd: hund
+  #   # Define user name to create
+  # - name: vagrant
+  #   # Define groups to add user to
+  #   # ensure samba_groups names exist.
+  #   groups:
+  #     - nogroup
+  #     - securedgroup
+  #     - testgroup
+  #   # Define samba user password
+  #   smbpasswd: P@55w0rd
