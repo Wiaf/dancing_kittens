@@ -1,7 +1,8 @@
 ---
 
-- hosts: calth03
+- hosts: calth02
   gather_facts: yes
   roles:
-   - role: nagios
+#   - role: nagios
+   - role: samba
   #ignore_errors: true

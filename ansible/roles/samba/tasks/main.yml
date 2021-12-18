@@ -1,0 +1,72 @@
+---
+
+- name: install samba
+  apt:
+    name: "{{ samba_prerequirements }}"
+    state: present
+  become: true
+  register: result
+  until: result is successful
+
+- name: config_samba | configuring samba
+  template:
+    src: etc/samba/smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  notify:
+    - restart nmbd
+    - restart smbd
+  tags: samba_config
+
+- name: samba_groups | ensuring groups exist
+  group:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items: "{{ samba_groups }}"
+  when: samba_groups is defined
+
+- name: samba_users | adding samba users to samba groups
+  user:
+    name: "{{ item[0]['name'] }}"
+    groups: "{{ item[1] }}"
+    append: yes
+  become: true
+  no_log: true
+  with_subelements:
+    - "{{ samba_users }}"
+    - groups
+
+- name: samba_users | creating samba user passwords
+  shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
+  become: true
+  no_log: true
+  with_items: "{{ samba_users }}"
+
+- name: create_shares | creating shared directories
+  file:
+    path: "{{ samba_share_path + '/' + item['name'] }}"
+    owner: "{{ item['owner']|default(omit) }}"
+    group: "{{ item['group']|default(omit) }}"
+    mode: "{{ item['folder_perms'] }}"
+    state: directory
+  become: true
+  with_items: "{{ samba_shares }}"
+  when: samba_shares is defined
+
+- name: Mount devices to shares
+  mount:
+    path: "{{ samba_share_path + '/' + item['name'] }}"
+    src: UUID="{{ item['uuid'] }}"
+    fstype: "{{ item['fstype'] }}"
+    opts: "{{ item['options'] }}"
+    state: mounted
+  with_items: "{{ samba_shares }}"
+  notify:
+  - restart smbd
+  - restart nmbd
+  ignore_errors: yes
+  when: samba_shares is defined

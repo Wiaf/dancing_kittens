@@ -6,7 +6,7 @@ samba_shares:
 
 - name: "kittycastle"
   samba_share_path: "/var/kittycastle"
-  uuid: "4ee101be-46b5-4b6f-99dd-a5233df7b215"
+  uuid: "b9d46634-ecf0-41a7-91db-80f8af0e8941"
   owner: "wiaf"
   group: "wiaf"
   folder_perms: "1775"
