@@ -13,5 +13,5 @@ samba_shares:
   folder_perms: "1775"
   fstype: "btrfs"
   options: "defaults,noatime,space_cache,autodefrag,compress=zstd"
-
-type: internal
+  writable: yes
+  browsable: yes

@@ -44,7 +44,7 @@ preferred master = yes
    valid users = {{ item.valid_users }}
 {%  endif %}
 {%  if item.writable is defined %}
-   writable = {{ item.writable|lower }}
+   writeable = {{ item.writable|lower }}
 {%  endif %}
 {%  if item.timemachine is defined %}
    vfs objects = catia fruit streams_xattr
