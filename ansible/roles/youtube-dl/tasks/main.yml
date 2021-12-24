@@ -1,6 +1,4 @@
 ---
-
----
 - name: Check if youtube-dl is already installed
   stat:
     path: "{{ youtubedl_executable_path }}"
