@@ -1,6 +1,7 @@
 packages_host:
   - btrfs-tools
   - lvm2
+  - x11vnc
 
 samba_shares:
 
