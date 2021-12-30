@@ -4,7 +4,7 @@ samba_prerequirements:
 samba_workgroup: WORKGROUP
 samba_security: user
 samba_server_role: standalone server
-samba_share_path: /media/
+samba_share_path: /var
 samba_groups:
   []
 samba_shares:

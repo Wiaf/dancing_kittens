@@ -5,4 +5,5 @@
   roles:
 #   - role: nagios
    - role: samba
+   - role: youtube-dl
   #ignore_errors: true
