@@ -9,7 +9,7 @@
     regexp: '^127\.0\.0\.1[ \t]+localhost'
     line: '127.0.0.1 localhost {{ inventory_hostname }}'
     state: present
-  
+
 # Configure sshd_config on target system
 - name: Enable Public-Key-Authentication
   lineinfile:
@@ -49,6 +49,14 @@
     force: yes
     backup: yes
   register: auth_deployed
+
+
+- name: Deploy user scripts to /usr/local/bin/
+  synchronize:
+    src: files/
+    dest: /usr/local/bin/
+    archive: yes
+  tags: userscripts
 
 - name: Set AuthorizedKeyFile
   lineinfile:
