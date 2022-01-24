@@ -5,3 +5,6 @@ youtubedl_executable_path: "/usr/local/bin/youtube-dl"
 
 # Do we need to update youtube-dl if it is already installed?
 youtubedl_update: false
+
+yotube-dl-prerequisites:
+  - ffmpeg
