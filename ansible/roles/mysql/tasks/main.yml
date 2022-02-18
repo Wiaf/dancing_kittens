@@ -1,12 +1,12 @@
 ---
 
-- include: vars.yml
+- include_tasks: vars.yml
   tags: ['always']
 
-- include: install.yml
+- include_tasks: install.yml
   tags: ['mariadb-install']
 
-- include: configure.yml
+- include_tasks: configure.yml
   tags: ['mariadb-configure', 'mariadb-update']
 
 #- include: secure-installation.yml
