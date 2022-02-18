@@ -1,11 +1,11 @@
 ---
 # Include OS specific tasks
-- include: Debian.yml
+- import_tasks: Debian.yml
   when: ansible_distribution == "Debian"
-- include: Ubuntu.yml
+- import_tasks: Ubuntu.yml
   when: ansible_distribution == "Ubuntu"
- 
-- name: set php.ini 
+
+- name: set php.ini
   lineinfile:
     dest: /etc/php/{{php_version}}/fpm/php.ini
     regexp: ";cgi.fix_pathinfo"
