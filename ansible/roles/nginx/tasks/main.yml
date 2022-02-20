@@ -5,6 +5,8 @@
     name: nginx
     state: latest
     update_cache: true
+  notify:
+    - restart nginx
 
 - name: Add Nginx Config
   template:

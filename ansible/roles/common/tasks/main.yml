@@ -9,7 +9,7 @@
     regexp: '^127\.0\.0\.1[ \t]+localhost'
     line: '127.0.0.1 localhost {{ inventory_hostname }}'
     state: present
-  
+
 # Configure sshd_config on target system
 - name: Enable Public-Key-Authentication
   lineinfile:
@@ -87,8 +87,8 @@
 
 - name: Ensuring that wheel is able to use sudo without password
   lineinfile:
-    path: /etc/sudoers
+    path: "/etc/sudoers"
     regexp: '^%wheel'
-    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    line: "%wheel ALL=(ALL) NOPASSWD: ALL"
     validate: 'visudo -cf %s'
   become: yes

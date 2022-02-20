@@ -5,7 +5,7 @@
   roles:
    - role: mysql
    - role: nginx
+     tags: nginx
    - role: php
-   - role: nodejs
-   - role: calth03
+   - role: wordpress
   ignore_errors: true
