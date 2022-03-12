@@ -78,6 +78,7 @@
     state: present
     install_recommends: yes
 
+
 - name: Install required  host specific packages
   apt:
     name: "{{ packages_host }}"

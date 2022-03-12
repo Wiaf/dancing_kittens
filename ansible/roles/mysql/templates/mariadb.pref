@@ -1,3 +1,0 @@
-Package: *
-Pin: origin {{ mariadb_apt_mirror | replace('http://', '') }}
-Pin-Priority: 1000

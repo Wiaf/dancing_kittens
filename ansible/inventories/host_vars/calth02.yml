@@ -1,6 +1,6 @@
 packages_host:
   - btrfs-progs
-  - btrfs-ctools
+ # - btrfs-tools
   - lvm2
 
 samba_shares:

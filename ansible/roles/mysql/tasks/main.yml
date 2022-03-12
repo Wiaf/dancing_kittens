@@ -1,13 +1,5 @@
 ---
 
-- include_tasks: vars.yml
-  tags: ['always']
-
-- include_tasks: install.yml
-  tags: ['mariadb-install']
-
-- include_tasks: configure.yml
-  tags: ['mariadb-configure', 'mariadb-update']
-
-#- include: secure-installation.yml
-#  tags: ['mariadb-secure-installation']
+- name: Install MariaDB
+  include_tasks: install.yml
+  tags: mariadb
