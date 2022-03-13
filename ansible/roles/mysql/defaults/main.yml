@@ -5,3 +5,4 @@ mariadb_packages:
 mariadb_databases: []
 mariadb_users: []
 mariadb_root_password: 'hund'
+mysql_reinstall: false

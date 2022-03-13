@@ -2,14 +2,11 @@
 
 - name: Purge all mysql packages
   apt:
-    pkg: '{{ item }}'
+    pkg: '{{ mariadb_packages }}'
     state: absent
     purge: true
   when: mysql_reinstall
   ignore_errors: true
-  with_items:
-    - 'mysql*'
-    - 'mariadb*'
 
 - name: Install packages
   package:

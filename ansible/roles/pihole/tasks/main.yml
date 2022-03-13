@@ -1,8 +1,3 @@
-- name: Install NTP
-  apt:
-    package: ntp
-    state: present
-  tags: ntp
 
 - name: Copy over the NTP configuration
   template: src=files/ntp.conf dest=/etc/ntp.conf
