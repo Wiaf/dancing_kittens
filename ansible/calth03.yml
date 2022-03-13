@@ -7,8 +7,8 @@
      tags: mysql
    - role: nginx
      tags: nginx
-#   - role: php
-#     tags: php
-#   - role: wordpress
-#     tags: wordpress
+   - role: php
+     tags: php
+   - role: wordpress
+     tags: wordpress
   ignore_errors: true
