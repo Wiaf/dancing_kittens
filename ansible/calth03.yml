@@ -3,12 +3,14 @@
 - hosts: calth03
   gather_facts: yes
   roles:
-   - role: mysql
-     tags: mysql
-   - role: nginx
-     tags: nginx
-   - role: php
-     tags: php
-   - role: wordpress
-     tags: wordpress
+  # - role: mysql
+  #   tags: mysql
+  # - role: nginx
+  #   tags: nginx
+  # - role: php
+  #   tags: php
+  # - role: wordpress
+  #   tags: wordpress
+  - role: snapd
+    tags: snapd
   ignore_errors: true

@@ -1,0 +1,11 @@
+---
+
+- name: Remove host specific packages
+  apt:
+    name: "{{ packages_host }}"
+    state: absent
+    install_recommends: yes
+  when: packages_host is defined
+
+- name: run update_os.sh
+  command: sh /usr/local/bin/update_os.sh
