@@ -1,0 +1,4 @@
+---
+- name: Install required snaps
+  snap:
+    name: "{{ snaps }}"
