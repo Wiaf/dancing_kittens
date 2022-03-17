@@ -68,6 +68,28 @@
   notify:
     - reload sshd
 
+- name: Ensuring that wheel is able to use sudo without password
+  lineinfile:
+    path: "/etc/sudoers"
+    regexp: '^%wheel'
+    line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+
+- name: copy user script
+  synchronize:
+    src: files/
+    dest: /usr/local/bin/
+  tags: userscripts
+
+- name: Set user script permissions
+  file:
+    dest: /usr/local/bin/
+    owner: root
+    group: root
+    mode: '1775'
+    recurse: yes
+  tags: userscripts
+
 - name: Update System
   apt:
     upgrade: dist
@@ -78,18 +100,9 @@
     state: present
     install_recommends: yes
 
-
 - name: Install required  host specific packages
   apt:
     name: "{{ packages_host }}"
     state: present
     install_recommends: yes
   when: packages_host is defined
-
-- name: Ensuring that wheel is able to use sudo without password
-  lineinfile:
-    path: "/etc/sudoers"
-    regexp: '^%wheel'
-    line: "%wheel ALL=(ALL) NOPASSWD: ALL"
-    validate: 'visudo -cf %s'
-  become: yes
