@@ -90,6 +90,13 @@
     recurse: yes
   tags: userscripts
 
+#- name: Edit /etc/dhpys-swapfile
+# lineinfile
+#   path: etc/dhpys-swapfile
+#   regexp: '^CONF_SWAPSIZE'
+#   line: '127.0.0.1 localhost {{ inventory_hostname }}'
+#   state: present
+
 - name: Update System
   apt:
     upgrade: dist

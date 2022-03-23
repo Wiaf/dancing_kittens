@@ -1,8 +1,0 @@
----
-mariadb_packages:
-  - mariadb-server
-  - mariadb-client
-mariadb_databases: []
-mariadb_users: []
-mariadb_root_password: 'hund'
-mysql_reinstall: false
