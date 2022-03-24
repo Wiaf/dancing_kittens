@@ -1,6 +1,8 @@
 packages_host:
   - btrfs-progs
- # - btrfs-tools
+
+
+swap_file_size_mb: '1024'
 
 samba_shares:
 

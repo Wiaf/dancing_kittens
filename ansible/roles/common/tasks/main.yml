@@ -90,12 +90,22 @@
     recurse: yes
   tags: userscripts
 
-#- name: Edit /etc/dhpys-swapfile
-# lineinfile
-#   path: etc/dhpys-swapfile
-#   regexp: '^CONF_SWAPSIZE'
-#   line: '127.0.0.1 localhost {{ inventory_hostname }}'
-#   state: present
+- name: Manage swap file entry in fstab.
+  mount:
+    name: none
+    src: "{{ swap_file_path }}"
+    fstype: swap
+    opts: sw
+    state: "{{ swap_file_state }}"
+  tags: swap
+
+- include_tasks: swap_disable.yml
+  when: swap_file_state == 'absent'
+  tags: swap
+
+- include_tasks: swap_enable.yml
+  when: swap_file_state == 'present'
+  tags: swap
 
 - name: Update System
   apt:

@@ -39,4 +39,4 @@ packages_common:
   - python3-apt
   - nload
   - nmap
-  - glances
+#  - glances
