@@ -2,7 +2,7 @@ packages_host:
   - ufw
   - snapd
 
-domain:
+domains:
   - cloud.bretterboi.online
 
 snaps:
