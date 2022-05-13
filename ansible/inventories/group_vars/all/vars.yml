@@ -36,7 +36,7 @@ packages_common:
   - vim
   - systemd
   - neofetch
-  - python3-apt
   - nload
   - nmap
+  - python-apt-common
 #  - glances
