@@ -65,6 +65,7 @@
     fstype: "{{ item['fstype'] }}"
     opts: "{{ item['options'] }}"
     state: mounted
+  become: yes
   with_items: "{{ samba_shares }}"
   notify:
   - restart smbd

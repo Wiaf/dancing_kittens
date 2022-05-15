@@ -6,5 +6,6 @@
 #   - role: nagios
    - role: samba
    - role: youtube-dl
-   - role: pihole
-  #ignore_errors: true
+#   - role: pihole
+  ignore_errors: true
+  become: yes
