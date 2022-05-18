@@ -1,6 +1,6 @@
 ---
 
-- hosts: calth05sudo apt install xfce4 xfce4-goodies
+- hosts: calth02, calth05
   gather_facts: yes
   roles:
 #   - role: nagios
